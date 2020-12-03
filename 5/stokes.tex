@@ -1,0 +1,86 @@
+\section{Integral Theorems}
+\subsection{Green's Theorem}
+\begin{proposition}[Green's Theorem]
+    For continuously differentiable functions $P=P(x,y),Q=Q(x,y)$ and a bounded region $A\subset\mathbb R^2$ with piecewise smooth boundary $\partial A$, we have
+    $$\oint_{\partial A}P\,\mathrm dx+Q\,\mathrm dy=\iint_A\left( \frac{\partial Q}{\partial x}-\frac{\partial P}{\partial y} \right)\,\mathrm dx\,\mathrm dy$$
+    where the direction of $\partial A$ is taken such that the region on the left of motion.
+\end{proposition}
+Note that the choice of direction is consistent with the convention we used for surfaces in $\mathbb R^3$ if we consider the normal to be pointing out of paper.
+We shall prove the case where $A$ is rectangular, i.e. $A=\{(x,y):x\in [a,b],y\in[c,d]\}$.
+\begin{proof}[Proof of Rectangular Case]
+    \begin{align*}
+        \iint_A\left( \frac{\partial Q}{\partial x}-\frac{\partial P}{\partial y} \right)\,\mathrm dx\,\mathrm dy
+        &=\int_c^d\int_a^b\frac{\partial Q}{\partial x}\,\mathrm dx\,\mathrm dy-\int_a^b\int_c^d\frac{\partial P}{\partial y}\,\mathrm dy\,\mathrm dx\\
+        &=\int_c^dQ(b,y)-Q(a,y)\,\mathrm dy-\int_a^bP(x,d)-P(x,c)\,\mathrm dx\\
+        &=\oint_{\partial A}P\,\mathrm dx+Q\,\mathrm dy
+    \end{align*}
+    As desired.
+\end{proof}
+The general case can be thought of gluing many rectangles together.
+\begin{example}
+    Suppose $Q=x/2,P=-y/2$, then
+    $$\oint_{\partial A}P\,\mathrm dx+Q\,\mathrm dy=\iint_A\,\mathrm dx\,\mathrm dy=\operatorname{Area}(A)$$
+    Let $A$ be the ellipse $x^2/a^2+y^2/b^2\le1$, which by integrating the line integral on the left, we get $\operatorname{Area}(A)=\pi ab$.
+\end{example}
+\subsection{Stokes' Theorem}
+\begin{proposition}
+    For a continuously differentiable vector field $\underline{F}$ and any orientable surface $S$ with piecewise smooth boundary, then
+    $$\int_S\nabla\times \underline{F}\cdot\mathrm d\underline{S}=\oint_{\partial S}\underline{F}\cdot\mathrm d\underline{x}$$
+\end{proposition}
+The orientability is important since we will need a consistent choice of normal on $S$ that varies smoothly from point to point.
+So surfaces can be said to have two sides, the inside and outside.
+An example of a non-orientable surface is the Mobius strip.
+\begin{example}
+    Consider a spherical cap
+    $$S=\{\underline{x}=(\cos\phi\sin\theta,\sin\phi\sin\theta,\cos\theta)^\top:\phi\in[0,2\pi],\theta\in[0,\alpha]\}$$
+    Let $F(\underline{x})=(-x^2y,0,0)^\top$, so $\nabla\times\underline{F}=(0,0,x^2)^\top$.
+    Now $\mathrm d\underline{S}=\underline{e_r}\sin\theta\,\mathrm d\theta\mathrm d\phi$.
+    So
+    $$\int_S\nabla\times\underline{F}\cdot\mathrm d\underline{S}=\int_0^\alpha\int_0^{2\pi}(\cos\phi\sin\theta)^2\cos\theta\sin\theta\,\mathrm d\phi\mathrm d\theta=\frac{\pi}{4}\sin^4\alpha$$
+    Now $\partial S:[0,2\pi]\ni t\mapsto (\cos t\sin\alpha,\sin t\sin\alpha,\cos\alpha)^\top$, we can calculate to find
+    $$\oint_{\partial S}\underline{F}\cdot\mathrm d\underline{x}=\frac{\pi}{4}\sin^4\alpha$$
+    Which is equal to the original value.
+\end{example}
+\begin{example}
+    If $S$ is a closed surface, then its boundary is $0$, hence by Stokes' Theorem,
+    $$\int_S\nabla \times\underline{F}\cdot\mathrm d\underline{S}=0$$
+    which just looks like what we get when we integrate a closed loop.
+\end{example}
+\begin{proposition}
+    If $\underline{F}$ is continuously differentiable and
+    $$\oint_C\underline{F}\cdot\mathrm d\underline{x}=0$$
+    for any closed loop $C$, then $\nabla F=\underline{0}$.
+\end{proposition}
+Hence zero circulation implies irrotaion.
+\begin{proof}
+    Suppose $\underline{F}$ satisfies all conditions but $\nabla\times\underline{F}\neq \underline{0}$, then there is a unit vector $\underline{k}$ such that it is nonzero in the $\underline{k}$ direction, then if there is some $\epsilon>0$ such that $\underline{k}\cdot(\nabla\times\underline{F}(\underline{x_0}))>\epsilon$, then there is some $\delta>0$ such that $|\underline{x}-\underline{x_0}|<\delta$ implies $\underline{k}\cdot(\nabla\times\underline{F})>\epsilon/2>0$.\\
+    Now consider the ball $|\underline{x}-\underline{x_0}|<\delta$ and we choose a disk $D$ inside it, we have
+    $$0=\left|\oint_{\partial D}\underline{F}\,\mathrm d\underline{x}\right|=\left|\int_D\nabla\times\underline{F}\cdot\mathrm d\underline{S}\right|\ge\frac{\epsilon}{2}\operatorname{Area}(D)>0$$
+    Contradiction.
+\end{proof}
+\begin{example}
+    Let $S_{\epsilon}$ be any sufficiently nice surface contained inside a disk with radius $\epsilon>0$ centered at $\underline{x}=\underline{x_0}$ with normal $\underline{k}$.
+    If
+    \begin{align*}
+        \int_{S_\epsilon}\nabla\times\underline{F}\cdot\mathrm d\underline{S}&=\int_{S_\epsilon}\nabla\times\underline{F}(\underline{x_0})\cdot\mathrm d\underline{S}+\left( \int_{S_\epsilon}\nabla\times(\underline{F}-\underline{F}(\underline{x_0}))\cdot\mathrm d\underline{S} \right)
+        \\
+        &=\underline{k}\cdot\nabla\times\underline{F}(\underline{x_0})\operatorname{Area}(S_\epsilon)+\int_{S_\epsilon}\nabla\times(\underline{F}-\underline{F}(\underline{x_0}))\cdot\mathrm d\underline{S}
+    \end{align*}
+    Now we claim that the last term is $o(\operatorname{Area}(S_\epsilon))$ as $\epsilon\to 0$.
+    Indeed,
+    \begin{align*}
+        \left| \int_{S_\epsilon}\nabla\times(\underline{F}-\underline{F}(\underline{x_0}))\cdot\mathrm d\underline{S} \right|
+        &\le\int_{S_\epsilon}|\nabla\times(\underline{F}-\underline{F}(\underline{x_0}))|\cdot\mathrm d\underline{S}\\
+        &\le\sup_{\underline{x}\in S_\epsilon}|\nabla\times(\underline{F}(\underline{x})-\underline{F}(\underline{x_0}))|\operatorname{Area}(S_\epsilon)\\
+        &=o(\operatorname{Area}(S_\epsilon))
+    \end{align*}
+    As $\underline{F}$ is continuously differentiable.
+    Therefore by Stokes' Theorem,
+    \begin{align*}
+        \frac{1}{\operatorname{Area}(S_\epsilon)}\oint_{\partial S_\epsilon}\underline{F}\cdot\mathrm d\underline{x}
+        &=\frac{1}{\operatorname{Area}(S_\epsilon)}\int_{S_\epsilon}\nabla\times\underline{F}\cdot\mathrm d\underline{S}\\
+        &=\underline{k}\cdot\nabla\times\underline{F}(\underline{x_0})+o(1)
+    \end{align*}
+    As $\epsilon\to 0$.
+    So the curl is the infinitesimal circulation around the normal $\underline{k}$ per unit area.
+\end{example}

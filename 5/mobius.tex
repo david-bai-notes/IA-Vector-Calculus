@@ -1,0 +1,21 @@
+\subsection{Bonus: Mobius Band and Stokes'}
+We all know what a Mobius Band (or Mobius Strip) is.
+In particular, it is not orientable since it only have one side.
+Consider $\underline{F}=(-y,x,0)^\top/(x^2+y^2)$, so $\nabla\times\underline{F}=\underline{0}$ whenever $x^2+y^2>0$.
+If we are given the parameterization
+$$S=\left\{\underline{x}(u,v)=\begin{pmatrix}
+    (1+\frac{v}{2}\cos\frac{u}{2})\cos u\\
+    (1+\frac{v}{2}\cos\frac{u}{2})\sin u\\
+    \frac{v}{2}\sin\frac{u}{2}
+\end{pmatrix}:u\in[0,2\pi],v\in[-1,1]\right\}$$
+Then if we apply Stokes' Theorem (which we should not), then
+$$0=\int_S\nabla\times\underline{F}\cdot\mathrm d\underline{S}=\oint_{\partial S}\underline{F}\cdot\mathrm d\underline{x}$$
+But the boundary, which is parameterized as
+$$[0,4\pi]\ni t\mapsto \begin{pmatrix}
+    (1+\frac{1}{2}\cos\frac{t}{2})\cos t\\
+    (1+\frac{1}{2}\cos\frac{t}{2})\sin t\\
+    \frac{1}{2}\sin\frac{t}{2}
+\end{pmatrix}$$
+Then we have
+$$\oint_{\partial S}\underline{F}\cdot\mathrm d\underline{x}=4\pi\neq 0$$
+Contradiction.

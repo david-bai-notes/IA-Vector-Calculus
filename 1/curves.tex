@@ -1,0 +1,107 @@
+\section{Differential Geometry of Space Curves}
+\subsection{Parameterized Curve by Arc Length}
+\begin{definition}
+    A parameterized curve $C$ is the image of a continuous map $[a,b]\to \mathbb R^3$ sending $t\mapsto \underline{x}(t)$.
+    We say $C$ is a differentiable parameterized curve if each component $x_i(t)$ is differentiable.
+    We say $C$ is regular if $\underline{x}^\prime(t)\neq\underline{0}$ for any $t$.\\
+    A regular and differentiable curve is called smooth.
+\end{definition}
+Since it is an applied course (sadly), we will assert that our curve is as differentiable as we like.\\
+To find the length of this curve, we partition the interval $[a,b]$ by $a=t_0<t_1<t_2<\cdots <t_{n-1}<t_n=b$.
+We define the length $l(C,P)$ with respect to this partition $P$ to be
+$$l(C,P)=\sum_{i=0}^{n-1}|\underline{x}(t_{i+1})-\underline{x}(t_i)|$$
+By some applied-maths-intuition nonsense, we get that if we make the differences $t_{i+1}-t_i$ small enough, we are going to approach the length of the curve $C$, independent of the way we approach the limit.
+So an applied mathematician will then set
+\begin{definition}
+    The length $l(C)$ of the curve $C$ is
+    $$\lim_{t_{i+1}-t_i\to 0}l(C,P)$$
+    which, as that applied mathematician will discover joyfully, equals
+    $$\int_{a}^b|\underline{x}^\prime(t)|\,\mathrm dt$$
+    Sometimes we write it as
+    $$\int_C\mathrm ds$$
+\end{definition}
+Again by intuition we are gonna write $\mathrm ds=\sqrt{\sum_i\dot{x}_i^2}\mathrm dt=\sqrt{\sum_i\mathrm dx_i^2}$.
+\begin{definition}
+    We define
+    $$\int_Cf\,\mathrm ds=\int_a^bf(\underline{x}(t))|\underline{\dot{x}}(t)|\,\mathrm dt$$
+    for smooth curve $C$.
+    And for piecewise smooth curve $C=C_1\cup C_2\cup\cdots\cup C_n$, we set
+    $$\int_Cf\,\mathrm ds=\sum_{i=1}^n\int_{C_i}f\,\mathrm ds$$
+\end{definition}
+\begin{example}
+    1. Let $C$ be a circle of radius $r>0$, so we can parameterize it by $(r\cos t,r\sin t,0), t\in [0,2\pi]$, and we unsurprisingly find that its length is $2\pi r$.\\
+    2. Take $C$ be the same circle as in 1, we have
+    $$\int_C x^2y\,\mathrm ds=\int_a^b (r\cos t)^2(r\sin t) r\,\mathrm dt=0$$
+\end{example}
+\begin{proposition}
+    The way we define curve integrals is independent of parameterization.
+\end{proposition}
+\begin{example}
+    If we parameterize the circle as $(r\cos(2t),r\sin(2t),0),t\in [0,\pi]$, we still get the same thing.
+\end{example}
+\begin{proof}
+    Let $\underline{s_1}(t),\underline{s_2}(\tau),t\in[a,b],\tau\in[\alpha,\beta]$ be two different parameterizations of $C$, then there exists a function $\tau\to t(\tau)$ such that $\underline{s_1}(t(\tau))=\underline{s_2}(\tau)$.
+    Assume that $\mathrm dt/\mathrm d\tau$ is nonzero and $t(\tau)$ is a differentiable, invertible, and have differentiable inverse, then we have
+    $$\underline{s_2}^\prime(\tau)=\frac{\mathrm d\underline{s_1}\circ t}{\mathrm d\tau}=\underline{s_1}^\prime(t)t^\prime(\tau)$$
+    If $\mathrm dt/\mathrm d\tau>0$, we have
+    $$\int_\alpha^\beta|\underline{s_2}^\prime(\tau)|\,\mathrm d\tau=\int_\alpha^\beta|\underline{s_1}^\prime(t(\tau))|t^\prime(\tau)\,\mathrm d\tau=\int_a^b|\underline{s_1}^\prime(t)|\,\mathrm dt$$
+    Similar for other cases.
+\end{proof}
+We now know the arc length is
+$$s(t)=\int_{t_0}^t|\underline{\dot{x}}(u)|\,\mathrm du$$
+On a regular curve, $\mathrm ds/\mathrm dt=|\underline{\dot{r}}(t)|>0$, this tells us that we can indeed parameterize each regular curve wrt arc length.
+This is done by observing $\mathrm dt/\mathrm ds=1/|\underline{\dot{r}}(t)|$ which means we can write $\underline{r}(s)=\underline{r}(t(s))$, where we have
+$$\frac{\mathrm d\underline{r}}{\mathrm ds}=\frac{\underline{\dot{r}}(t)}{|\underline{\dot{r}}(t)|}$$
+which is a unit vector.
+Therefore,
+\begin{lemma}
+    Any smooth curve $C$ has a parameterization $\underline{r}(s)$ such that
+    $$\left|\frac{\mathrm dr}{\mathrm ds}\right|\equiv 1$$
+\end{lemma}
+\begin{proof}
+    Followed from above.
+\end{proof}
+\subsection{Curvature and Torsion}
+Throughout this section, we are only interested in smooth curves $C$ parameterized by arc length $\underline{r}(s)$.
+\begin{definition}
+    The tangent vector is defined as $\underline{t}(s)=\underline{r}^\prime(s)$.
+\end{definition}
+Note that $\underline{t}$ is always unit as it is an arc length parameterization.
+\begin{definition}
+    The curvature of $\underline{r}(s)$ is defined as $\kappa(s)=|\underline{t}^\prime(s)|=|\underline{r}^{\prime\prime}(s)|$.
+\end{definition}
+Note that if we differentiate $\underline{t}\cdot\underline{t}=1$, then we have $\underline{t}\cdot\underline{t}^\prime=0$.
+This shows that the unit vector in the direction $t^\prime$ has a geometric interpretation as the normal to a curve, so we define
+\begin{definition}
+    The principal normal $\underline{n}$ is the (unit) vector such that $\underline{t}^\prime=\kappa\underline{n}$.
+\end{definition}
+Naturally, when we already have a pair of orthonormal vectors in $\mathbb R^3$, adding a third one seems to be the next step to do.
+\begin{definition}
+    In $\mathbb R^3$, the binormal $\underline{b}$ is defined as $\underline{b}=\underline{t}\times\underline{n}$.
+\end{definition}
+Then the vectors $\underline{t},\underline{n},\underline{b}$ form an orthonormal basis for $\mathbb R^3$.
+Again we have $\underline{b}\cdot\underline{b}^\prime=0$ as $\underline{b}$ is unit.
+But we also have $\underline{t}\cdot\underline{b}=0$, we get $\underline{t}\cdot\underline{b}^\prime=0$.
+Hence $\underline{n},\underline{b}^\prime$ are parallel.
+\begin{definition}
+    The torsion $\tau$ is defined as such that $\underline{b}^\prime=-\tau\underline{n}$.
+\end{definition}
+So we have got there
+$$\begin{cases}
+    \underline{t}^\prime=\kappa\underline{n}=\kappa(\underline{b}\times\underline{t})\\
+    \underline{b}^\prime=-\tau\underline{n}=\tau(\underline{t}\times\underline{b})
+\end{cases}$$
+Intuitively and truthfully
+\begin{proposition}
+    The curvature and torsion uniquely defines a curve up to rigid motion.
+\end{proposition}
+\begin{proof}
+    Picard-Lindel\"of Theorem.
+\end{proof}
+The Taylor expansion of $\underline{r}(t)$ around $0$ shows
+$$\underline{r}(s)=\underline{r}(0)+s\underline{t}(0)+\frac{1}{2}s^2\kappa\underline{n}(0)+o(s^2)$$
+Now we turn to consider the circle of best fit around $\underline{r_0}$.
+Parameterize the circle (with radiu $r$) by and expand to see that the second order term is somewhat like $s^2\underline{n}/(2r)$, so it is natural to define
+\begin{definition}
+    The radius of curvature is defined as $r=1/\kappa$.
+\end{definition}

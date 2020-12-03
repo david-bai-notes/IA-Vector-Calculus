@@ -1,0 +1,291 @@
+\section{Cartesian Tensors}
+In this section, we are only interested in the Cartesian coordinates in a right-handed basis.
+\subsection{A Closer Look at Vectors}
+Given the basis, we can write $\underline{x}\in\mathbb R^3$ in the form $x_i\underline{e_i}$ where the summation convention is used.
+We should not identify the vector $\underline{x}$ with component $x_i$ since we may want to choose another basis for certain purposes.
+But if we have $\underline{x}=x_i\underline{e_i}=x_i'\underline{e_i'}$ for right-handed bases $\underline{e_i},\underline{e_i'}$, then
+$$x_i'=x_j'\delta_{ij}=x_j'\underline{e_j'}\cdot\underline{e_i'}=\underline{e_i'}\cdot(x_j'\underline{e_j'})=\underline{e_i'}\cdot(x_j\underline{e_j})=x_j\underline{e_i'}\cdot\underline{e_j}=R_{ij}x_j,R_{ij}=\underline{e_i'}\cdot\underline{e_j}$$
+Playing the same game yields $x_i=\underline{e_i}\cdot\underline{e_j'}x_j'=R_{ji}x_j'$.
+Combining them gives $x_i=R_{ji}R_{jk}x_k$, so $0=(R_{ji}R_{jk}-\delta_{ik})x_k$, which has to hold for any choice of $x_k$, therefore $R_{ji}R_{jk}=\delta_{ik}$.
+If we set $R$ to be the matrix with entries $R_{ij}$, then what we obtained above means $R^\top R=I$.
+So $R\in\operatorname{O}(3)$.
+Now $x_i\underline{e_i}=x_i'\underline{e_i'}=R_{ij}x_j\underline{e_i'}=R_{ji}x_i\underline{e_j'}$, so $\underline{e_i}=R_{ji}\underline{e_j'}$, so $R$ has to be in $\operatorname{SO}(3)$ since both bases are right-handed.
+In summary, changing from $\{\underline{e_i}\}$ to $\{\underline{e_i'}\}$ induces the change in components by multiplication of a matrix in $\operatorname{SO}(3)$, i.e. $x_i'=R_{ij}x_j$.
+We call such objects rank-$1$ tensors of vectors.
+\subsection{A Closer Look at Scalars}
+Consider $\sigma=\underline{a}\cdot\underline{b}$.
+Using $\underline{e_i}$ with $\underline{a}=a_i\underline{e_i},\underline{b}=b_i\underline{e_i}$, then $\sigma=a_ib_j\underline{e_i}\cdot\underline{e_j}=a_ib_j\delta{ij}=a_ib_i$.
+If we used another set of basis vectors $\underline{a}=a_i'\underline{e_i'},\underline{b}=b_i'\underline{e_i'}$, then $\sigma'=a_i'b_i'$ has
+$$\sigma'=a_i'b_i'=R_{ij}a_jR_{ik}b_k=R_{ij}R_{ik}a_jb_k=\delta_{jk}a_jb_k=a_jb_j=\sigma$$
+as one may have expected.
+Call such transformation of scalars rank-$0$ tensors.
+\subsection{A Closer Look at Linear Maps}
+Consider linear map $T:\mathbb R^3\to\mathbb R^3$ with $\underline{x}\mapsto\underline{y}=T(\underline{x})=\underline{x}-(\underline{x}\cdot\underline{n})\underline{n}$ which is jus the projection of $\underline{x}$ down the plane with normal $\underline{n}$.
+If we use basis $\{\underline{e_i}\}$, then
+$$y_i\underline{e_i}=T(x_j\underline{e_j})=x_jT(\underline{e_j})=x_j(\underline{e_j}-n_in_j\underline{e_i})=x_j(\delta_{ij}-n_in_j)\underline{e_i}$$
+So $y_i=T_{ij}x_j$ where $T_{ij}=\delta_{ij}-n_in_j$.
+If we used another basis $\underline{e_i'}$, we would have got $y_i'=T_{ij}'x_j'$ where $T_{ij}'=\delta_{ij}-n_i'n_j'$.
+Note that using $n_i'=R_{ip}n_p$, etc., we have
+$$T_{ij}'=\delta{ij}-R_{ip}R_{jq}n_pn_q=R_{ip}R_{jq}(\delta_{pq}-n_pn_q)=R_{ip}T_{pq}R_{jq}$$
+So changing from one set of right handed orthonormal basis to another induces change in components of linear map $T$ (as a matrix) by $T_{ij}'=R_{ip}R_{jq}T_{pq}$, or $T'=RTR^\top$.
+We call objects changing like that to be rank-$2$ tensors.
+\subsection{Cartesian Tensors of General Rank}
+\begin{definition}
+    An object with components $T_{i_1\cdots i_n}$ is called a tensor of rank $n$ if its component transform according to $T_{i_1\cdots i_n}'=R_{i_1j_1}\cdots R_{i_nj_n}T_{j_1\cdots j_n}$ when we change from one right-handed Cartesian basis $\{\underline{e_i}\}$ to $\{\underline{e_i'}\}$ where $\det R=1$ and $R_{i_pi_r}R_{i_qi_r}=\delta_{i_pi_q}$ for $p,q,r$ distinct.
+\end{definition}
+Note that $R_{ij}$'s are rotation matrices.
+\begin{example}
+    1. If $u_{i_1},v_{i_2},\ldots,w_{i_n}$ are components of set of $n$ vectors, then $T_{i_1\cdots i_k}=u_{i_1}v_{i_2}\cdots w_{i_n}$ is a tensor of rank $n$.
+    Suppose we change from $\{\underline{e_i}\}$ to $\{\underline{e_i'}\}$, then
+    $$T_{i_1\cdots i_n}'=u_{i_1}'v_{i_2}'\cdots w_{i_n}'=R_{i_1j_1}u_{j_1}R_{i_2j_2}u_{j_2}\cdots R_{i_nj_n}u_{j_n}=R_{i_1j_1}\cdots R_{i_nj_n}T_{j_1\cdots j_n}$$
+    2. The Kronecker delta $\delta_{ij}$ is a tensor of rank $2$ as it is independent of choice of basis.
+    Indeed, we want $R_{ip}R_{jq}\delta_{pq}=R_{ip}R_{jp}=\delta_{ij}=\delta_{ij}'$.\\
+    3. The Levi-Civita epsilon again is independent of choice of basis, so $\epsilon_{ijk}'=\epsilon_{ijk}$.
+    We have
+    $$R_{ip}R_{jq}R_{kr}\epsilon_{pqr}=\det(R)\epsilon_{ijk}=\epsilon_{ijk}=\epsilon_{ijk}'$$
+    So it is a tensor of rank $3$.\\
+    4. Experimental evidence suggests a linear relationship between code $j$ produced in some medium that is exposed to electric field $\underline{E}$.
+    So a given Cartesian basis $\{\underline{e_i}\}$, we must have numbers $\sigma_{ij}$ such that $J_i=\sigma_{ij}E_j$, so if we change basis from $\{\underline{e_i}\}$ to $\{\underline{e_i'}\}$, then $\sigma_{ij}'E_j'=J_i'=R_{ip}J_p=R_{ip}\sigma_{pq}E_q=R_{ip}R_{jq}\sigma_{pq}E_j'$, so $\sigma_{ij}'=R_{ip}R_{jq}\sigma_{pq}$.
+    So $\sigma$ is a tensor of rank $2$.
+    This is an example of something called the quotient theorem, which will be proved at the end of the course.
+\end{example}
+\begin{example}[Non-example]
+    Not every array of numbers is a tensor.
+    For example, in some given basis $\{\underline{e_i}\}$ we define an array
+    $$(a_{ij})=\begin{pmatrix}
+        1&2&3\\
+        4&5&6\\
+        7&8&\pi
+    \end{pmatrix}$$
+    and $a_{ij}=0$ in any other choice of basis, then $a_{ij}$ is not the component of a second rank tensor.
+\end{example}
+\begin{definition}
+    If $a,b$ are rank-$n$ tensors with components $a_{i_1\cdots i_n},b_{i_1\cdots i_n}$, then the object $a+b$ by $(a+b)_{i_1\cdots i_n}=a_{i_1\cdots i_n}+b_{i_1\cdots i_n}$ is also a tensor of rank $n$.
+    If $\alpha$ is a scalar, then we can define the tensor $\alpha a$ by $(\alpha a)_{i_1\cdots i_n}=\alpha a_{i_1\cdots i_n}$.
+\end{definition}
+\begin{definition}
+    If $U$ is a tensor of rank $n$ and $V$ a tensor of rank $m$, then their tensor product $U\otimes V$ is a tensor of rank $m+n$ defined by
+    $$(U\otimes V)_{i_1\cdots i_nj_1\cdots j_m}=U_{i_1\cdots i_n}V_{j_1\cdots j_m}$$
+\end{definition}
+\begin{definition}
+    Suppose $n\ge 2$ and $T$ is a tensor of rank $n$, we can define a new tensor of rank $n-2$ by contraction on two indices (i.e. summing over two chosen indices).
+\end{definition}
+It is easy to check that these are indeed all tensors.
+We say $T_{i_1\cdots i_n}$ is symmetric in $i_1,i_2$ if $T_{i_1i_2\cdots i_n}=T_{i_2i_1\cdots i_n}$.
+This is obviously well-behaved.
+Note that we can generalize it to symmetries in any pair of indices.
+We say it is antisymmetric in $i_1,i_2$ if $T_{i_1i_2\cdots i_n}=-T_{i_2i_1\cdots i_n}$.
+We say it is totally symmetric if it is symmetric in each pair of indices, and totally antisymmetric if it is antisymmetric in any two indices.
+\begin{example}
+    Both $\delta_{ij}$ and $a_ia_ja_k$ are totally symmetric tensors.
+    Also $\epsilon_{ijk}$ is totally antisymmetric.
+    In fact, one can see immediately that the Levi-Civita $\epsilon$ is the only antisymmetric tensor of rank $3$ up to proportionality.
+\end{example}
+Also, there are no nonzero totally antisymmetric tensor of rank $n\ge 4$ in $\mathbb R^3$.
+\subsection{Tensor Calculus}
+We say $T_{i_1\cdots i_n}(\underline{x})$ is a tensor field of rank $n$ if for each $\underline{x_0}\in\mathbb R^3$, $T_{i_1\cdots i_n}(\underline{x_0})$ is a tensor of rank $n$.
+Note that $x_i'=R_{ij}x_j$ when we transform to one orthonormal right-handed basis to the other.
+Also $x_j=R_{kj}x_k'$.
+By the chain rule, $\partial/\partial x_i'=(\partial x_j/\partial x_i')(\partial/\partial x_j)=R_{ij}\partial/\partial x_j$.
+\begin{proposition}
+    Suppose $T_{i_1\cdots i_n}(\underline{x})$ is a tensor field of rank $n$, then
+    $$A_{j_1\cdots j_mi_1\cdots i_n}(\underline{x})=\frac{\partial}{\partial x_{j_1}}\cdots\frac{\partial}{\partial x_{j_m}}T_{i_1\cdots i_n}(\underline{x})$$
+    is a tensor field of rank $m+n$.
+\end{proposition}
+\begin{proof}
+    From definition and chain rule.
+\end{proof}
+\begin{example}
+    1. If $\phi$ is a scalar field, then components of $\nabla\phi$ changes according to $[\nabla\phi]_i'=\partial\phi/\partial x_i'=R_{ij}\partial\phi/\partial x_j=R_{ij}[\nabla\phi]_j$, so $\nabla\phi$ is a rank $1$ tensor field (or vector field).\\
+    2. If $\underline{v}$ is a vector field, then using the same trick we can see that $\nabla\cdot\underline{v}$ is a rank $0$ tensor (or scalar field).\\
+    3. If $\underline{v}$ is a vector field, so is $\nabla\times\underline{v}$.
+\end{example}
+\begin{example}
+    Recall the divergence theorem for vector fields:
+    $$\int_V\nabla\cdot\underline{F}\,\mathrm dV=\int_{\partial V}\underline{F}\cdot\mathrm dS$$
+    Equivalently (or not),
+    $$\int_V\frac{\partial F_i}{\partial x_i}\,\mathrm dV=\int_{\partial V}v_in_i\,\mathrm dS$$
+    Turns out we can do this on tensor fields as well, where we have
+    $$\int_V\frac{\partial}{\partial x_{i_k}}T_{i_1\cdots i_n}\,\mathrm dV=\int_{\partial V}T_{i_1\cdots i_n}n_{i_k}\,\mathrm dS$$
+    which follows from the case for vector fields on the field
+    $$v_{i_k}=a_{i_1}b_{i_2}\cdots c_{i_n}T_{i_1\cdots i_k\cdots i_n}$$
+\end{example}
+\subsection{Tensors of Rank 2}
+An arbitrary rank-$2$ tensor $T_{ij}$ can be written as
+$$T_{ij}=\frac{1}{2}(T_{ij}+T_{ji})+\frac{1}{2}(T_{ij}-T_{ji})=S_{ij}+A_{ij}$$
+So $S_{ij}$ is symmetric and $A_{ij}$ is antisymmetric.
+Note that $S_{ij}$ only has $6$ independent components, and $A_{ij}$ has $3$ independent components.
+This is all consistent since a rank $3$ tensor has $9=6+3$ independent components.
+\begin{proposition}
+    A rank $2$ tensor can be written as $T_{ij}=S_{ij}+\epsilon_{ijk}\omega_k$ where $S_{ij}$ is symmetric and $\omega_k=\epsilon_{kpq}T_{pq}/2$.
+    Also, this decomposition is unique.
+\end{proposition}
+\begin{proof}
+    Just expand by taking $S_{ij}=(T_{ij}+T_{ji})/2$ for existence.
+    As for uniqueness, suppose $S_{ij}+\epsilon_{ijk}\omega_k=\tilde{S}_{ij}+\epsilon_{ijk}\tilde\omega_k$.
+    But we can take the symmetric part of each sides to get $S_{ij}=\tilde{S}_{ij}$, hence $\omega_k=\tilde\omega_k$.
+\end{proof}
+\begin{example}
+    Suppose each point $\underline{x}$ in an elastic body undergoes small displacement $\underline{u}(\underline{x})$, then consider two points, initially seperated by $\delta\underline{x}$, then after the displacement they are seperated by
+    $$\underline{u}(\underline{x}+\delta\underline{x})+\underline{x}+\delta\underline{x}-\underline{u}(\underline{x})-\underline{x}=\delta\underline{x}+(\underline{u}(\underline{x}+\delta\underline{x})-\underline{u}(\underline{x}))$$
+    So the change in seperation would be $\underline{\underline{x}+\delta\underline{x}}-\underline{u}(\underline{x})$.
+    Now using Cartesian and suffix notation, we have $u_i(\underline{x}+\delta\underline{x})-u_i(\underline{x})=\delta x_j\partial u_i/\partial x_j+o(|\delta\underline{x}|)$
+    We write $\partial u_i/\partial x_j=e_{ij}+\epsilon_{ijk}\omega_k$ where
+    $$e_{ij}=\frac{1}{2}\left(\frac{\partial u_i}{\partial x_j}+\frac{\partial u_j}{\partial x_i}\right),\omega_k=\frac{1}{2}\epsilon_{kpq}\partial u_p/\partial x_q=-\frac{1}{2}[\nabla\times\underline{u}]_k$$
+    $e_{ij}$ here is called the linear strain tensor.
+    So we have
+    $$\underline{u}(\underline{x}+\delta\underline{x})-\underline{u}(\underline{x})=e_{ij}\delta x_j+[\delta\underline{x}\times\underline{\omega}]_i+o(|\delta\underline{x}|)$$
+    So $e_{ij}$ tells you how the material strains,
+\end{example}
+Suppose a body occupies a volume $V$ has density $\rho(\underline{x})$ and suppose each point is rotating with angular velocity $\underline{\omega}$ through the origin, then the velocity of the point $\underline{x}$ is $\underline{\omega}\times\underline{x}$.
+Then the total angular momentum is
+$$\underline{L}=\int_V\rho(\underline{x})(\underline{x}\times\underline{v})\,\mathrm dV=\int_V\rho(\underline{x})(\underline{x}\times(\underline{\omega}\times\underline{x}))\,\mathrm dV$$
+Using a right-handed basis $\{\underline{e_i}\}$ of $\mathbb R^3$, we have
+$$L_i=\int_{\mathcal V}\rho(\underline{x})(x_kx_k\omega_i-x_ix_j\omega_j)\,\mathrm dV=I_{ij}\omega_j,I_{ij}=\int_{\mathcal V}\rho(\underline{x})(x_kx_k\delta_{ij}-x_ix_j)\,\mathrm dV$$
+where $\mathcal V=\{(x_1,x_2,x_3):\underline{x}=x_i\underline{e_i}\in V\}$.
+If we change our basis to another $\{\underline{e_i'}\}$, then we have (with $x_i'=R_{ij}x_j$)
+\begin{align*}
+    I_{ij}'&=\int_{\mathcal V'}\rho(\underline{x})(x_k'x_k'\delta_{ij}-x_i'x_j')\,\mathrm dV\\
+    &=R_{ip}R_{jq}\int_{\mathcal V}\rho(\underline{x})(x_kx_k\delta_{pq}-x_px_q)|J|\,\mathrm dV\\
+    &=R_{ip}R_{jq}I_{pq}
+\end{align*}
+So $I_{ij}$ is really a tensor.
+We call it the inertial tensor.
+\begin{example}
+    Consider an ellipsoid
+    $$\frac{x_1^2}{a^2}+\frac{x_2^2}{b^2}+\frac{x_3^2}{c^2}=1$$
+    with $\rho(\underline{x})\equiv\rho_0$.
+    By symmetry, if $i\neq j$, then $I_{ij}=0$.
+    Now
+    $$I_{11}=\rho_0\int_Vx_2^2x_3^2\,\mathrm dV$$
+    By using scaled spherical polars $x_1=ar\cos\phi\sin\theta,x_2=br\sin\phi\sin\theta,x_3=cr\cos\theta$, so $\mathrm dV=abcr^2\sin\theta\,\mathrm dr\,\mathrm d\theta\,\mathrm d\phi$, we have
+    $$I_{11}=\int_0^{2\pi}\int_0^\pi\int_0^1 r^2(b^2\sin^2\phi\sin^2\theta+c^2\cos^2\theta)abcr^2\sin\theta\,\mathrm dr\,\mathrm d\theta\,\mathrm d\phi=\frac{M}{5}(b^2+c^2)$$
+    So
+    $$(I_{ij})=\frac{M}{5}\begin{pmatrix}
+        b^2+c^2&0&0\\
+        0&a^2+c^2&0\\
+        0&0&a^2+b^2
+    \end{pmatrix}$$
+    If in particular $a=b=c$, then $I_{ij}\propto\delta_{ij}$.
+\end{example}
+\begin{proposition}
+    If $T_{ij}$ is real and symmetric, then there exists choice of basis in which $T_{ij}=0$ whenever $i\neq j$.
+\end{proposition}
+\begin{proof}
+    In Vectors \& Matrices.
+\end{proof}
+\subsection{Isotropic Tensors}
+\begin{definition}
+    Say $T_{i_1\cdots i_n}$ is isotropic if $T_{i_1\cdots i_n}'=T_{i_1\cdots i_n}$ when transforming from a basis to the other.
+    That is, for any rotational $R$, we have
+    $$T_{i_1\cdots i_n}=R_{i_1j_1}\cdots R_{i_nj_n}T_{j_1\cdots j_n}$$
+\end{definition}
+\begin{example}
+    1. Scalars are isotropic.\\
+    2. $\delta_{ij}$ is isotropic.\\
+    3. $\epsilon_{ijk}$ is also isotropic.
+\end{example}
+It turns out that we can classify all isotropic tensors in $\mathbb R^3$, and we can generalise this to $\mathbb R^n$.
+We state this in the proposition below, which we shall provide a partial proof.
+\begin{proposition}
+    In $\mathbb R^3$:\\
+    1. All scalars are isotropic.\\
+    2. There are no nonzero isotropic rank-$1$ tensors (vectors).\\
+    3. Most general isotropic tensor of rank $2$ is $\alpha\delta_{ij}$ where $\alpha$ is a scalar.\\
+    4. Most general isotropic tensor of rank $3$ is $\beta\epsilon_{ijk}$ where $\beta$ is a scalar.\\
+    5. Most general isotropic tensor of rank $4$ is $\alpha\delta_{ij}\delta_{kl}+\beta\delta_{il}\delta_{jk}+\gamma\delta_{ik}\delta_{jl}$ where $\alpha,\beta,\gamma$ are scalars.\\
+    6. Tensors of higher rank is a linear combination of $\epsilon$'s and $\delta$'s, e.g. $\delta_{ij}\epsilon_{pqr}$ is an isotropic rank $5$ tensor.
+\end{proposition}
+\begin{proof}
+    1 is obvious.\\
+    For 2, assume $v_i$ is an isotropic tensor of rank $1$, then $v_i=R_{ij}v_j$ for all choice of rotation $R$.
+    If we choose
+    $$(R_{ij})=\begin{pmatrix}
+        -1&0&0\\
+        0&-1&0\\
+        0&0&1
+    \end{pmatrix}$$
+    then we immediately get $v_1=v_2=0$.
+    Similarly $v_3=0$, so $v=0$.\\
+    For 3, suppose $T_{ij}$ is isotropic, then $T_{ij}=R_{ip}R_{jq}T_{pq}$ for any rotation $R$.
+    Choose
+    $$(R_{ij})=\begin{pmatrix}
+        0&1&0\\
+        -1&0&0\\
+        0&0&1
+    \end{pmatrix}$$
+    Then
+    $$T_{23}=R_{2p}R_{3q}T_{pq}=R_{21}R_{33}T_{13}=-T_{13},T_{13}=R_{1p}R_{3q}T_{pq}=R_{12}R_{33}T_{23}=T_{23}$$
+    so we conclude $T_{13}=T_{23}=0$.
+    Now $T_{11}=R_{1p}R_{1q}T_{pq}=T_{22}$, so $T_{11}=T_{22}$.
+    Consider another rotation matrix
+    $$(R_{ij})=\begin{pmatrix}
+        1&0&0\\
+        0&0&1\\
+        0&-1&0
+    \end{pmatrix}$$
+    then
+    $$T_{31}=R_{3p}R_{1q}T_{pq}=R_{32}R_{11}R_{21}=-R_{21},T_{21}=R_{2p}R_{1q}T_{pq}=R_{23}R_{11}T_{31}=T_{31}$$
+    So $T_{31}=T_{21}=0$.
+    Lastly
+    $$T_{32}=R_{3p}R_{2q}T_{pq}=R_{32}R_{23}T_{23}=0,T_{12}=R_{1p}R_{2q}T_{pq}=R_{11}R_{23}T_{13}=0$$
+    So in conclusion $T_{ij}=0$ whenever $i\neq j$
+    Also $T_{33}=R_{3p}R_{3q}T_{pq}=R_{32}R_{32}T_{22}=T_{22}$, so $T_{11}=T_{22}=T_{33}$.
+    Hence $T_{ij}=T_{11}\delta_{ij}$.
+    Take $\alpha=T_{11}$ completes the proof.\\
+    4,5,6 can be proved by similar idea.
+\end{proof}
+Consider tensors of the form
+$$T_{i_1\cdots i_n}=\int_{V_R}f(r)x_{i_1}\cdots x_{i_n}\,\mathrm dV$$
+where $r^2=x_px_p$ and $V_R$ is a ball of radius $R$ centered at $0$.
+Then when we go to another frame of reference by $R$,
+$$T_{i_1\cdots i_n}'=R_{i_1j_1}\cdots R_{i_nj_n}T_{j_1\cdots j_n}=R_{i_1j_1}\cdots R_{i_nj_n}\int_{V_R}f(r')x_{j_1}\cdots x_{j_n}\,\mathrm dV$$
+where $r'^2=r^2$ since $R$ is a rotation.
+Set $y_{i_k}=R_{i_kj_k}x_{j_k}$ and do a change of variable in this way, we get
+$$T_{i_1\cdots i_n}'=\int_{V_R}f(r')y_{i_1}\cdots y_{i_n}\,\mathrm dV=T_{i_1\cdots i_n}$$
+Since $V_R$ is indeendent of rotation.
+So $T$ is indeed isotropic.
+Taking $R\to\infty$ allows us to view it as an integration over $\mathbb R^3$.
+\begin{example}
+    Consider
+    $$T_{ij}=\int_{\mathbb R^3}e^{-r^5}x_ix_j\,\mathrm dV=T_{11}\delta_{ij}$$
+    by our classification theorem.
+    Also $T_{ii}=4\pi/5$, so $T_{ij}=4\pi\delta_{ij}/15$.
+\end{example}
+\begin{example}
+    The inertial tensor of a ball with radius $R>0$ and constant density $\rho_0$, so
+    $$I_{ij}=\rho_0\int_{V_R}x_kx_k\delta_{ij}-x_kx_j\,\mathrm dV$$
+    The right hand side is the sum of two isotropic tensor of rank $2$, so $I_{ij}=\alpha\delta_{ij}$.
+    Contract on $i,j$ gives $\alpha=2MR^2/5$ where $M=\rho_0 4\pi R^3/3$.
+\end{example}
+\subsection{Multilinear Maps and Quotient Theorem}
+Given some right-handed orthonormal basis, let $T_{ij}$ denote the components of rank $2$ tensor.
+Define a bilinear map $t:\mathbb R^3\times\mathbb R^3\to\mathbb R$ by $t(\underline{a},\underline{b})=T_{ij}a_ib_j$, which one can note is independent of the basis we chose hence the map is well-defined.
+Conversely, for a bilinear $t:\mathbb R^3\times\mathbb R^3\to\mathbb R$, and we choose a certain basis $\{\underline{e_i}\}$, then we can write $t(\underline{a},\underline{b})=a_ib_jt(\underline{e_i},\underline{e_j})$, so $T_{ij}=t(\underline{e_i},\underline{e_j})$ is a rank-$2$ tensor since  $t$ is bilinear.
+This gives a one-to-one correspondence between bilinear maps and rank-$2$ tensors.
+In particular, if a (bilinear) map $(\underline{a},\underline{b})\mapsto T_{ij}a_ib_j$ is well-defined, then $T_{ij}$ is naturally a tensor.\\
+In general, we can correspondingly identify a rank-$n$ tensor in $\mathbb R^3$ by multilinear maps $(\mathbb R^3)^n\to\mathbb R$.
+\begin{proposition}[Quotient Theorem]
+    Given basis $\{\underline{e_i}\}$, let $T_{i_1\cdots i_nj_1\cdots j_m}$ be array of numbers such that $v_{i_1\cdots i_n}=T_{i_1\cdots i_nj_1\cdots j_m}u_{j_1\cdots j_m}$ is a tensor for any tensor $u$, then $T$ is a tensor.
+\end{proposition}
+\begin{proof}
+    Take $u_{j_1\cdots j_m}=c^1_{j_1}\cdots c^m_{j_m}$, where $\underline{c^k}$ are vectors.
+    So
+    $$v_{i_1\cdots i_n}=T_{i_1\cdots i_nj_1\cdots j_m}c^1_{j_1}\cdots c^m_{j_m}$$
+    is a tensor by hypothesis.
+    Let $\underline{a^1},\ldots,\underline{a^n}$ be vectors, then we can contract $v$ by $v_{i_1\cdots i_n}a_{i_1}^1\cdots a_{i_n}^n$, which is a scalar that is independent of basis, so the map
+    $$(\underline{a^1},\ldots,\underline{a^n},\underline{c^1},\ldots,\underline{c^n})\mapsto T_{i_1\cdots i_nj_1\cdots j_m}a_{i_1}^1\cdots a_{i_n}^nc_{j_1}^1\cdots c_{j_m}^m$$
+    is independent of choice of coordinates, so $T$ is a tensor.
+\end{proof}
+\begin{example}
+    Recall linear strain tensor $e_{ij}=(\partial u_i/\partial x_j+\partial u_j/\partial x_i)/2$ where $\underline{u}(\underline{x})$ is the displacement of the particle at $\underline{x}$ of a body undergoing deformation.
+    Experimental evidence suggests a linear relationship between stresses (internal forces) and strain.
+    We measure stress using stress tensor $\sigma_{ij}$.
+    There are $3^4=81$ numbers $c_{ijkl}$ such that $\sigma_{ij}=c_{ijkl}e_{kl}$.
+    This is just a generalization of Hookes' Law to higher dimensions.
+    Now if we know that $c_{ijkl}=c_{ijlk}$ we know that $c_{ijkl}$ is a tensor from the quotient theorem.
+    In this case we call this array $c_{ijkl}$ is the stiffness tensor.
+    For isotropic material, we know that $c_{ijkl}=\alpha\delta_{ij}\delta_{kl}+\beta\delta_{ik}\delta_{jl}+\gamma\delta_{il}\delta_{jk}$, so $\sigma_{ij}=\alpha e_{kk}\delta_{ij}+\beta e_{ij}+\gamma e_{ji}=\alpha e_{kk}\delta_{ij}+2\mu e_{ij}$ where $\mu=\beta+\gamma$.
+    We can invert for $e_{ij}$ by contract on indices $i,j$, so $\sigma_{kk}=(3\alpha+2\mu)e_{kk}$, so $e_{kk}=\sigma_{kk}/(3\alpha+2\mu)$.
+    So $2\mu e_{ij}=\sigma_{ij}-\alpha\sigma_{kk}\delta_{ij}/(3\alpha+2\mu)$.
+\end{example}

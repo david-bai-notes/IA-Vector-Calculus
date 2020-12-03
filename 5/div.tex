@@ -1,0 +1,80 @@
+\subsection{Divergence Theorem}
+\begin{proposition}
+    Let $\underline{F}$ be a continuously differentiable vector field, and let $V$ be a volume in $\mathbb R^3$ with piecewise regular boundary $\partial V$, then
+    $$\int_V\nabla\cdot\underline{F}\,\mathrm dV=\int_{\partial V}\underline{F}\cdot\mathrm d\underline{S}$$
+    where the normal points out of the volume $V$.
+\end{proposition}
+\begin{proposition}
+    Let $\underline{F}$ be a continuously differentiable vector field in $\mathbb R^2$, and let $D$ be a subset of $\mathbb R^2$ be a region with piecewise smooth boundary $\partial D$, then
+    $$\int_D\nabla\cdot\underline{F}\,\mathrm dA=\int_{\partial D}\underline{F}\cdot\underline{n}\,\mathrm ds$$
+    where $\underline{n}$ points out of the region $D$.
+\end{proposition}
+\begin{example}
+    Let $\underline{F}(\underline{x})=\underline{x}$ and $V$ the cylinder, so
+    $$V=\{\underline{x}=\underline{x}(\rho,\phi,z):0\le\rho\le R,0\le\phi\le 2\pi,-h\le z\le h\}$$
+    So $\nabla\cdot\underline{F}=3$, hence
+    $$\int_V\nabla\cdot\underline{F}\,\mathrm dV=3\int_V\mathrm dV=6\pi R^2h$$
+    As for the surface integral, we write $\partial V=S_+\cup S_-\cup S$ where $S_+,S_-$ are the top and lower disks, and $S$ is the curved surface in between.
+    $$S=\{R\underline{e_\rho}+z\underline{e_z}:z\in[-h,h],\phi\in [0,2\pi]\}$$
+    So $\mathrm d\underline{S}=\underline{e_\rho}R\,\mathrm d\phi\,\mathrm dz$, hence by calculation,
+    $$\int_S\underline{F}\cdot\mathrm d\underline{S}=4\pi R^2h$$
+    Now $S_{\pm}=\{\rho\underline{e_\rho}\pm h\underline{e_z}:\rho\in[0,R],\phi\in[0,2\pi]\}$.
+    We will also find that $\mathrm d\underline{S_\pm}=\pm\underline{e_z}\rho\,\mathrm d\rho\,\mathrm d\phi$.
+    $$\int_{S_{\pm}}\underline{F}\cdot\mathrm d\underline{S_{\pm}}=\pi R^2h$$
+    So adding them together does give $6\pi R^2h$.
+\end{example}
+\begin{proposition}
+    If $\underline{F}$ is continuously differentiable and for all closed surfaces $S$ we have
+    $$\int_S\underline{F}\cdot\mathrm d\underline{S}=0$$
+    Then $\nabla\cdot\underline{F}=0$.
+\end{proposition}
+\begin{proof}
+    Assume that it is not zero, so WLOG we can take a point $\underline{x_0}$ such that $\nabla\cdot\underline{F}(\underline{x_0})=\epsilon>0$, then there is some $\delta>0$ with $|\underline{x}-\underline{x_0}|<\delta\implies\nabla\cdot\underline{F}(\underline{x})>\epsilon/2$.
+    Take the volume $V$ to be the ball $\{\underline{x}\in\mathbb R^3:|\underline{x}-\underline{x_0}|<\delta\}$ with boundary $\partial V$, then
+    $$0=\int_{\partial V}\underline{F}\cdot\mathrm d\underline{S}=\int_V\nabla\cdot\underline{F}\,\mathrm dV>\frac{\epsilon}{2}\operatorname{Volume}(V)>0$$
+    by Divergence Theorem.
+    Contradiction.
+\end{proof}
+\begin{example}
+    Let $V_\epsilon$ be a volume contained inside a ball of radius $\epsilon$ centered at $\underline{x_0}$.
+    Then
+    \begin{align*}
+        \int_{\partial V_\epsilon}\underline{F}\cdot\mathrm d\underline{S}&=\int_{V_\epsilon}\nabla\cdot\underline{F}\,\mathrm dV\\
+        &=\int_{V_\epsilon}\nabla\cdot\underline{F}(\underline{x_0})\,\mathrm dV+\left( \int_{V_\epsilon}\nabla\cdot\underline{F}\,\mathrm dV-\int_{V_\epsilon}\nabla\cdot\underline{F}(\underline{x_0})\,\mathrm dV \right)\\
+        &=\nabla\cdot\underline{F}\operatorname{Volume}(V_\epsilon)+\left( \int_{V_\epsilon}\nabla\cdot\underline{F}-\nabla\cdot\underline{F}(\underline{x_0})\,\mathrm dV \right)
+    \end{align*}
+    But as we did before,
+    \begin{align*}
+        \left| \int_{V_\epsilon}\nabla\cdot\underline{F}-\nabla\cdot\underline{F}(\underline{x_0})\,\mathrm dV \right|&\le\operatorname{Volume}(V_\epsilon)\sup_{\underline{x}\in V_\epsilon}|\nabla\cdot\underline{F}(\underline{x})-\nabla\cdot\underline{F}(\underline{x_0})|\\
+        &=o(\operatorname{Volume(V_\epsilon)})
+    \end{align*}
+    as $\epsilon\to 0^+$.
+    Hence
+    $$\nabla\cdot\underline{F}(\underline{x_0})=\lim_{\epsilon\to0^+}\frac{1}{\operatorname{Volume}(V_\epsilon)}\int_{\partial V_\epsilon}\underline{F}\cdot\mathrm d\underline{S}$$
+    That is, $\nabla\cdot\underline{F}$ measures the infinitesimal flux per unit volume.
+    Therefore $\nabla\cdot\underline{F}(\underline{x_0})>0$ means that the field is going out of $\underline{x_0}$, and it being negative means that the field is going into $\underline{x_0}$.
+    If it is zero at that point, then the field is incompressible there.
+\end{example}
+\begin{example}
+    1. Take again $\underline{F}(\underline{x})=\underline{x}$ and $V_\epsilon=\{\underline{x}:|\underline{x}|<\epsilon\}$, then we calculate
+    \begin{align*}
+        \nabla\cdot\underline{F}(\underline{0})&=\lim_{\epsilon\to 0^+}\frac{1}{\operatorname{Volume}(V_\epsilon)}\int_{\partial V_\epsilon}\underline{F}\cdot\mathrm d\underline{S}\\
+        &=3
+    \end{align*}
+    as desired.\\
+    2. Call equations of the form
+    $$\frac{\partial\rho}{\partial t}+\nabla\cdot\underline{J}=0$$
+    as \textit{conservation laws}.
+    We claim that if $|\underline{J}|\to 0$ as $|\underline{x}|\to\infty$, then the charge
+    $$Q(t)=\int_{\mathbb R^3}\rho(\underline{x},t)\,\mathrm dV$$
+    remains constant.
+    We differentiate to get
+    \begin{align*}
+        \frac{\mathrm dQ}{\mathrm dt}&=\int_{\mathbb R^3}\frac{\partial\rho}{\partial t}\,\mathrm dV\\
+        &=-\int_{\mathbb R^3}\nabla\cdot\underline{J}\,\mathrm dV\\
+        &=-\lim_{R\to\infty}\int_{|\underline{x}|<R}\nabla\cdot\underline{J}\,\mathrm dV\\
+        &=-\lim_{R\to\infty}\int_{|\underline{x}|=R}\underline{J}\cdot\mathrm d\underline{S}\\
+        &=0
+    \end{align*}
+    So $Q$ is constant.
+\end{example}

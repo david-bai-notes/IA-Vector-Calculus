@@ -1,0 +1,203 @@
+\section{Integration along Lines, Surfaces, and Volumes}
+\subsection{Line Integrals}
+\begin{definition}
+    For a vector field $\underline{F}(\underline{x})$ and a curve $C$ where $\underline{x}(t)$ travels through for $t\in [a,b]$, we define the line integral
+    $$\int_C\underline{F}\cdot\mathrm d\underline{x}=\int_a^b\underline{F}(\underline{x}(t))\cdot\frac{\mathrm d\underline{x}}{\mathrm dt}\,\mathrm dt$$
+\end{definition}
+\begin{example}
+    Let
+    $$\underline{F}=\begin{pmatrix}
+        x^2y\\
+        yz\\
+        2zx
+    \end{pmatrix},C_1:[0,1]\ni t\mapsto\begin{pmatrix}
+        t\\
+        t\\
+        t
+    \end{pmatrix},C_2:[0,1]\ni t\mapsto\begin{pmatrix}
+        t\\
+        t\\
+        t^2
+    \end{pmatrix}$$
+    ...
+    We have
+    $$\int_{C_1}\underline{F}\cdot\mathrm d\underline{x}=\frac{5}{4},\int_{C_2}\underline{F}\cdot\mathrm d\underline{x}=\frac{13}{10}$$
+    Hence in general line integrals between two points depends on path.
+\end{example}
+\begin{example}
+    In cylindral polars $(\rho,\phi,z)$, we consider $\underline{F}=\rho z\underline{e_{\phi}}$.
+    Consider the line $C:[0,2\pi]\ni t\mapsto (a\cos t,a\sin t,t)^\top$.
+    So $\rho=a,\phi=z=t$
+    We have $\underline{F}\cdot\mathrm d\underline{x}=\rho^2 z\mathrm d\phi$, therefore
+    $$\int_C\underline{F}\cdot\mathrm d\underline{x}=\int_0^{2\pi}a^2t\,\mathrm dt=2a^2\pi^2$$
+\end{example}
+In those cases where $C$ is closed, we write
+$$\oint_C\underline{F}\cdot\mathrm d\underline{x}=\int_C\underline{F}\cdot\mathrm d\underline{x}$$
+This is sometimes called the circulation of $\underline{F}$ over $C$.
+\subsection{Conservative Forces and Exact Differentials}
+$\underline{F}\cdot\mathrm d\underline{x}$ is an example of a differential form.
+\begin{definition}
+    We say $\underline{F}\cdot\mathrm d\underline{x}$ is exact if $\underline{F}\cdot\mathrm d\underline{x}=\mathrm df$ for some scalar function $f$.
+    Equivalently, the differential form is exact iff $\underline{F}=\nabla f$ for a scalar function $f$.
+    In this case, we say $\underline{F}$ is conservative.
+\end{definition}
+\begin{proposition}
+    If $\underline{F}\cdot\mathrm d\underline{x}$ is exact, then
+    $$\oint_C\underline{F}\cdot\mathrm d\underline{x}=0$$
+    for any closed $C$.
+\end{proposition}
+\begin{proof}
+    By exactness, $\underline{F}=\nabla f$ for a scalar function $f$.
+    Suppose $C: [a,b]\ni t\mapsto\underline{x}(t)$.
+    $$\oint_C\underline{F}\cdot\mathrm d\underline{x}=\int_a^b\nabla f(\underline{x}(t))\cdot\underline{x}^\prime(t)\,\mathrm dt=\int_a^b\frac{\mathrm d}{\mathrm dt}f(\underline{x}(t))\,\mathrm dt=f(\underline{x}(b))-f(\underline{x}(a))=0$$
+    since $\underline{x}(b)=\underline{x}(a)$.
+\end{proof}
+\begin{remark}
+    Consider the cylindral coordinate $(\rho,\phi,z)$, suppose $\underline{F}\cdot\mathrm d\underline{x}=\mathrm d\phi$ and $C:[0,2\pi]\ni t\mapsto (\cos t,\sin t,0)^\top$, then by calculation we have
+    $$\oint_C \underline{F}\cdot\mathrm d\underline{x}=2\pi\neq 0$$
+    It does not work!
+    The reason for this is that $\phi\in\mathbb R/2\pi\mathbb Z$.
+    So we are doing here is taking $\phi$ as a multivalued function instead of an actual function.
+\end{remark}
+Suppose we have a set of curvilinear coordinate $(u,v,w)=(u_1,u_2,u_3)$, and we have $\underline{F}\cdot\mathrm d\underline{x}=\theta_i\,\mathrm du_i$ where $\theta_i=\underline{F}\cdot\mathrm d\underline{x}/\mathrm du_i$.
+If $\underline{F}\cdot\mathrm d\underline{x}$ is exact and is the differential $\mathrm df$, then $\theta_i=\partial f/\partial u_i$, and
+$$\frac{\partial \theta_i}{\partial u_j}=\frac{\partial^2 f}{\partial u_i\partial u_j}=\frac{\partial^2 f}{\partial u_j\partial u_i}=\frac{\partial \theta_j}{\partial u_i}$$
+\begin{definition}
+    If the above condition is met, we say the differential form $\underline{F}\cdot\mathrm d\underline{x}$ is closed.
+\end{definition}
+So exact differentials are all closed.
+\begin{theorem}
+    If the domain of the vector field is simply connected, then any closed differential is exact.
+\end{theorem}
+\begin{proof}
+    Not gonna do it.
+\end{proof}
+\begin{example}
+    1. The differential $y\,\mathrm dx-x\,\mathrm dy$ is not closed hence not exact.\\
+    2. Consider $C:[t_1,t_2]\ni t\mapsto (f,g,h)$ where $f,g,h$ are completely unintelligible functions such that $(f,g,h)(t_1)=(f,g,h)(t_2)$, then whatever they are, we always have
+    $$\oint_C 3x^2y\,\mathrm dx+x^3\,\mathrm dy=0$$
+    As the integrand is exact.
+\end{example}
+\begin{theorem}
+    Suppose $\underline{F}\cdot\mathrm\underline{x}=\mathrm df$, then consider $C$ from $\underline{a}$ from $\underline{b}$, then we have
+    $$\int_C\underline{F}\cdot\mathrm\underline{x}=f(\underline{b})-f(\underline{a})$$
+\end{theorem}
+\begin{proof}
+    Obvious.
+\end{proof}
+\begin{example}
+    Suppose $\underline{F}=m\underline{\ddot{x}}$ and $C:[a,b]\ni t\mapsto\underline{x}(t)$, we have
+    $$\int_C\underline{F}\cdot\mathrm d\underline{x}=m\int_a^b\underline{\ddot{x}}\cdot\underline{\dot{x}}\,\mathrm dt=\left.\frac{1}{2}m|\underline{\dot{x}}|^2\right|_a^b$$
+    If $\underline{F}=-\nabla V$, then we have the conservation of energy:
+    $$\left.\frac{1}{2}m|\underline{\dot{x}}|^2\right|_a^b=\int_C\underline{F}\cdot\mathrm d\underline{x}=-\left.V(\underline{x}(t))\right|^b_a$$
+    So $V(\underline{x})+m|\underline{\dot{x}}|^2/2$ conserves.
+\end{example}
+\subsection{Integration over Areas}
+We want to extend our definition of Riemannian integrals to $\mathbb R^2$.
+To do it, we partition our region $D$ into small cells $A_{ij}$ with area $\delta A_{ij}$ diameter at most $\epsilon$ and pick points $(x_i,y_j)\in A_{ij}$.
+\begin{definition}
+    We thus define the area integral by
+    $$\int_Df\,\mathrm dA=\lim_{\epsilon\to 0}\sum_{i,j}f(x_i,y_j)\delta A_{ij}$$
+    We say this integral exists if this limit is independent of the choice of the partition $A_{ij}$.
+\end{definition}
+When the integral exists, the obivous choice is to split $D$ into rectangular cells and set $x_{i+1}=x_i+\delta x,y_{j+1}=y_j+\delta y$ such that $0<\delta x,\delta y<<\epsilon$.
+Then we may fix $y$ first and take $\delta x\to 0$, and then do $\delta y\to 0$.
+That is, we split the horizontal region by $\epsilon$-thin stripes and sum over the Riemann integrals in each stripe.
+If we do this, then
+$$\int_Df\,\mathrm dA=\int_Y\int_{x_y}f(x,y)\,\mathrm dx\,\mathrm dy$$
+where $x_y=\{x:(x,y)\in D\}$.
+If we do vertical stripes first, then we get stuff like
+$$\int_Df\,\mathrm dA=\int_X\int_{y_x}f(x,y)\,\mathrm dy\,\mathrm dx$$
+where $y_x=\{y:(x,y)\in D\}$.
+In short, we seems to have $\mathrm dA=\mathrm dx\,\mathrm dy=\mathrm dy\,\mathrm dx$
+\begin{theorem}[Fubini's Theorem]
+    If the integral exists (or under suitable conditions), then
+    $$\int_Df\,\mathrm dA=\int_Y\int_{x_y}f(x,y)\,\mathrm dx\,\mathrm dy=\int_X\int_{y_x}f(x,y)\,\mathrm dy\,\mathrm dx$$
+\end{theorem}
+\begin{example}
+    $f(x)=xy^2$ and $D$ is the triangle joining $(0,0),(0,1),(1,0)$.
+    Then we have
+    $$\int_Df\,\mathrm dA=\int_0^1\int_{0}^{1-y}xy^2\,\mathrm dx\,\mathrm dy=\int_0^1\frac{(1-y)^2y^2}{2}\,\mathrm dy=\frac{1}{60}$$
+    If we do $y$ (vertical slices) first,
+    $$\int_Df\,\mathrm dA=\int_0^1\int_0^{1-x}xy^2\,\mathrm dy\,\mathrm dx=\int_0^1\frac{x(1-x)^3}{3}\,\mathrm dx=\frac{1}{60}$$
+\end{example}
+Recall that in the one dimensional case, we can do integrations by some magical substitutions.
+Obviously we will wish to extend this technique to integrations over higher dimensions.
+\begin{proposition}[Change of Variable]
+    Let $x=x(u,v),y=y(u,v)$ be a smooth bijection $D\to D'$ with smooth inverse, then
+    $$\iint_D f(x,y)\,\mathrm dx\,\mathrm dy=\iint_{D'}f(x(u,v),y(u,v))|J|\,\mathrm du\,\mathrm dv$$
+    where
+    $$J=\frac{\partial (x,y)}{\partial (u,v)}=\begin{vmatrix}
+        x_u&x_v\\
+        y_u&y_v
+    \end{vmatrix}$$
+    is the Jacobian.
+\end{proposition}
+\begin{proof}
+    Partition $D$ using image of rectangular partition of $D'$.
+    Then we have
+    $$\int_Af\,\mathrm dA=\lim_{\epsilon\to 0}\sum_{i,j}f(x(u_i,v_j),y(u_i.y_j))\delta A_{ij}^{x,y}$$
+    But $\delta A_{ij}^{x,y}\approx |J|\delta A_{ij}^{u,v}$ by considering the area as local parallelograms and expanding the Taylor series to first order.
+    So we have this formula.
+\end{proof}
+\begin{example}
+    Consider $x=\rho\cos\phi,y=\rho\sin\phi$ for $\rho\ge 0$, then $|J|=\rho$, hence $\mathrm dx\,\mathrm dy=\rho\,\mathrm d\rho\,\mathrm d\phi$.
+    Take $D$ to be the region $x>0,y>0$, then this region is mapped to the region $\phi\in (0,\pi/2)$.
+    So let
+    $$I=\int_0^\infty e^{-x^2}\,\mathrm dx$$
+    then
+    $$I^2=\int_0^\infty\int_0^\infty e^{-x^2-y^2}\rho\,\mathrm dx\,\mathrm dy=\int_0^{\pi/2}\int_0^\infty e^{-\rho^2}\rho\,\mathrm d\rho\,\mathrm d\phi=\frac{\pi}{4}\implies I=\frac{\sqrt\pi}{2}$$
+\end{example}
+\subsection{Integration over Volumes}
+For a bounded volume $V$ in $\mathbb R^3$, define sets $V_{ijk}$ having volume $\delta V_{ijk}$ which partition $V$ and each is contained in a ball of radius at most $\epsilon$.
+Then we pick some $(x_i,y_j,z_k)$ in each cell $V_{ijk}$ and define the integral over the region $V$ as
+$$\lim_{\epsilon\to 0^+}\sum_{i,j,k}f(x_i,y_j.z_k)\delta V_{ijk}$$
+If we use a rectangular parallelopiped partition, we find that $\mathrm dV=\mathrm dx\,\mathrm dy\,\mathrm dz$ in any order (by Fubini).
+\begin{example}
+    1. Consider the domain to be the tetrahedron $V=\{(x,y,z)\in\mathbb R_{\ge 0}^3:x+y+z\le 1\}$.
+    So
+    $$\int_V\mathrm dV=\int_0^1\int_0^{1-x}\int_0^{1-x-y}\mathrm dz\,\mathrm dy\,\mathrm dx=\frac{1}{6}$$
+    2. For a volumn $V$, we define the center of mass $\Delta_{\rm COM}$ by
+    $$\Delta_{\rm COM}=\frac{1}{M}\int_V\rho\underline{x}\,\mathrm dV$$
+    where $\rho$ is the density, $M=\rho V$ is the mass and the integral is by component.
+    Consider the same tetrahedron as above and suppose $\rho=1$.
+    Hence $M=1/6$, so
+    $$\Delta_{\rm COM}=6\int_V1\begin{pmatrix}
+        x\\
+        y\\
+        z
+    \end{pmatrix}\,\mathrm dV=\frac{1}{4}\begin{pmatrix}
+        1\\
+        1\\
+        1
+    \end{pmatrix}$$
+\end{example}
+\begin{proposition}
+    Let $\underline{x}=\underline{x}(u,v,w)$ (where $\underline{x}=(x,y,z)$), denote the smooth bijection with smooth inverse which connects the region $V$ in the $xyz$ space and $V'$ in the $uvw$ space, then
+    $$\iiint_Vf(x,y,z)\,\mathrm dx\,\mathrm dy\,\mathrm dz=\iiint_{V'}f(x(u,v,w),y(u,v,w),z(u,v,w))|J|\,\mathrm du\,\mathrm dv\,\mathrm dw$$
+    where
+    $$J=\begin{vmatrix}
+        x_u&x_v&x_w\\
+        y_u&y_v&y_w\\
+        z_u&z_v&z_w
+    \end{vmatrix}$$
+\end{proposition}
+\begin{proof}
+    Same (imprecise) idea.
+\end{proof}
+\begin{example}
+    If we use cylindral polars, we find $\mathrm dx\,\mathrm dy\,\mathrm dz=\rho\,\mathrm d\rho\,\mathrm d\phi\,\mathrm dz$, and if we use spherical polars, we have $\mathrm dx\,\mathrm dy\,\mathrm dz=r^2\sin\theta\,\mathrm dr\,\mathrm d\theta\,\mathrm d\phi$.
+\end{example}
+\begin{example}
+    1. Consider a sphere with radius $R$, we want to find its volume.
+    If we do it with Cartesians, then
+    $$\int_{-R}^R\int_{-\sqrt{R^2-z^2}}^{\sqrt{R^2-z^2}}\int_{-\sqrt{R^2-z^2-y^2}}^{\sqrt{R^2-z^2-y^2}}\mathrm dx\,\mathrm dy\,\mathrm dz=\frac{4}{3}\pi R^3$$
+    after a lot of useless effort.\\
+    So obviously we choose to use spherical polars, hence the volume is
+    $$\int_0^{2\pi}\int_0^\pi\int_0^{R}r^2\sin\theta\,\mathrm dr\,\mathrm d\theta\,\mathrm d\phi=\frac{4}{3}\pi R^2$$
+    after minimal effort.\\
+    2. A ball of radius $b>0$ with cylinder with radius $a>0$ (and infinite length) with $a>0$ removed.
+    So maybe we will use some cylindral polars, so the volume is
+    $$\int_0^{2\pi}\int_a^b\int_{-\sqrt{b^2-\rho^2}}^{\sqrt{b^2-\rho^2}}\rho\,\mathrm dz\,\mathrm d\rho\,\mathrm d\phi=\frac{4}{3}\pi(b^2-a^2)^{3/2}$$
+    which was easy.
+\end{example}

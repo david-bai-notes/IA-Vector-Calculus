@@ -1,0 +1,70 @@
+\section{Divergence, Curl and Laplacian}
+\subsection{Definitions}
+\begin{definition}
+    For a vector field $\underline{F}:\mathbb R^3\to\mathbb R^3$, we define the divergence
+    $$\operatorname{div}\underline{F}=\nabla\cdot\underline{F}=\frac{\partial F_i}{\partial x_i}$$
+    where the summation convention applies.
+\end{definition}
+\begin{definition}
+    For a vector field $\underline{F}:\mathbb R^3\to\mathbb R^3$, we define the curl
+    $$\operatorname{curl}\underline{F}=\nabla\times\underline{F}=\epsilon_{ijk}\frac{\partial F_k}{\partial x_j}\underline{e_i}$$
+    where again the summation convention applies.
+\end{definition}
+\begin{definition}
+    For a function $f:\mathbb R^3\to\mathbb R$, we define the Laplacian
+    $$\Delta f=\nabla^2f=\nabla\cdot(\nabla f)=\frac{\partial^2 f}{\partial x_i\partial x_i}$$
+    where yet again we have the summation convention.
+\end{definition}
+\begin{note}
+    All these are in Cartesians.
+\end{note}
+\begin{example}
+    Consider the vector field $\underline{F}(\underline{x})=\underline{x}$, then $\nabla\cdot\underline{F}=3$.
+    Also $(\nabla\times\underline{F})_i=\epsilon_{ijk}\frac{\partial F_k}{\partial x_j}=\epsilon_{ijk}\delta_{jk}=0$, hence $\nabla\times\underline{F}=\underline{0}$.
+\end{example}
+\begin{proposition}
+    We have the following identities:
+    $$\nabla(fg)=(\nabla f)g+f(\nabla g)$$
+    $$\nabla\cdot(f\underline{F})=(\nabla f)\cdot\underline{F}+f(\nabla\cdot\underline{F})$$
+    $$\nabla\times (fF)=(\nabla f)\times\underline{F}+f(\nabla\times\underline{F})$$
+    $$\nabla(\underline{F}\cdot\underline{G})=\underline{F}\times(\nabla\times\underline{G})+\underline{G}\times(\nabla\times\underline{F})+(\underline{F}\cdot\nabla)\underline{G}+(\underline{G}\cdot\nabla)\underline{F}$$
+    $$\nabla\times(\underline{F}\times\underline{G})=\underline{F}(\nabla\cdot\underline{G})-\underline{G}(\nabla\cdot\underline{F})+(\underline{G}\cdot\nabla)\underline{F}-(\underline{F}\cdot\nabla)\underline{G}$$
+    $$\nabla\cdot(\underline{F}\times\underline{G})=(\nabla\times\underline{F})\cdot\underline{G}-\underline{F}\cdot(\nabla\times\underline{G})$$
+\end{proposition}
+\begin{proof}
+    Trivial.
+\end{proof}
+Of course we want, can can compute these three quantities in curvilinear coordinates, but we cannot do it directly since the basis vectors are not constant.
+However we can expand everything and get
+\begin{proposition}
+    For a vector field $\underline{F}$ under a curvilinear coordinate $\underline{F}=F_u\underline{e_u}+F_v\underline{e_v}+F_w\underline{e_w}$,
+    $$\nabla\cdot\underline{F}=\frac{1}{h_uh_vh_w}\sum_{u,v,w}^{\rm cyc}\frac{\partial}{\partial u}(h_vh_wF_u)$$
+    $$\nabla\times\underline{F}=\sum_{u,v,w}^{\rm cyc}\frac{1}{h_vh_w}\left( \frac{\partial}{\partial v}(h_wF_w)-\frac{\partial}{\partial w}(h_vF_v) \right)\underline{e_u}$$
+    And for a scalar function $f$,
+    $$\nabla^2f=\frac{1}{h_uh_vh_w}\sum_{u,v,w}^{\rm cyc}\frac{\partial}{\partial u}\left(\frac{h_uh_w}{h_u}\frac{\partial f}{\partial u}\right)$$
+\end{proposition}
+\begin{proof}
+    Trivial calculations.
+\end{proof}
+If one is bored, one can try and find the formulas for cylindral and spherical coordinates:
+$$\nabla^2f=\frac{1}{\rho}\frac{\partial}{\partial\rho}\left( \rho\frac{\partial f}{\partial\rho} \right)+\frac{1}{\rho^2}\frac{\partial^2f}{\partial \phi^2}+\frac{\partial^2f}{\partial z^2}$$
+$$\nabla^2f=\frac{1}{r^2}\frac{\partial}{\partial r}\left( r^2\frac{\partial f}{\partial r} \right)+\frac{1}{r^2\sin\theta}\frac{\partial}{\partial\theta}\left( \sin\theta\frac{\partial f}{\partial\theta} \right)+\frac{1}{r^2\sin\theta}\frac{\partial^2f}{\partial\phi^2}$$
+The reason why we need these notions is for the generalization of fundamental Theorem of Calculus to general integrals, where some of these operators will be used as a substituent of derivative.\\
+The reason we need Laplacians is that the PDE $\nabla^2f=0$, whose solutions are called harmonic functions, is pretty important.
+One of their properties that once they are twice differentiable (so as to let the equation make sense), then they are infinitely differentiable.
+Even better, they are all analytic, i.e. can be expressed in terms of power series.
+\subsection{Relationships between the Operators}
+\begin{proposition}
+    Let $f:\mathbb R^3\to\mathbb R$ and $\underline{F}:\mathbb R^3\to\mathbb R^3$, then $\nabla\times\nabla f=0$ and $\nabla \cdot(\nabla\times\underline{F})=0$.
+\end{proposition}
+\begin{proof}
+    Trivial.
+\end{proof}
+Hence if $\underline{F}$ is conservative, then it has zero curl.
+The reverse implication is true when the domain is simply connected.
+For example, if we take $\mathbb R^3\setminus\{(0,0,z):z\in\mathbb R\}$ as our domain, then this is not simply connected, but $\mathbb R^3\setminus\{(0,0,0)\}$ is.\\
+If there exists vector fields $\underline{A}$ such that $\underline{F}=\nabla\times\underline{A}$, we say $\underline{A}$ is a vector potential of $\underline{F}$.
+So if $\nabla\cdot\underline{F}=0$, we say $\underline{F}$ is solenoidal.
+The existence of a vector potential for $\underline{F}$ implies $\underline{F}$ is solenoidal.
+The reverse implication is true when the domain is $2$-connected, that is, it is simply connected and the second homotopy group is trivial.
+For example, $\mathbb R^3$ is $2$-connected but $\mathbb R^3\setminus\{(0,0,0)\}$ is not.

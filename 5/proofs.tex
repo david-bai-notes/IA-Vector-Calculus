@@ -1,0 +1,82 @@
+\subsection{Sketch Proofs}
+\begin{proof}[Proof of Divergence Theorem in Convex Domains]
+    Consider $\underline{F}=F_z\underline{e_z}$ and a volume $V$ with $\partial V=S_+\cup S_-$ divided by a surface such that both $S_+,S_-$ project to the same surface $A$ on the $x-y$ plane (which is possible since the domain is convex).
+    We describe the surfaces as
+    $$S_{\pm}=\{\underline{x}=\underline{x}(x,y)=\begin{pmatrix}
+        x\\
+        y\\
+        g_{\pm}(x,y)
+    \end{pmatrix}:(x,y)\in A\}$$
+    Therefore
+    \begin{align*}
+        \int_V\frac{\partial F_z}{\partial z}\,\mathrm dV&=\iint_A\left( \int_{g_-(x,y)}^{g_+(x,y)} \frac{\partial F_z}{\partial z}\,\mathrm dz\right)\,\mathrm dx\,\mathrm dy\\
+        &=\iint_A(F_z(x,y,g_+(x,y))-F_z(x,y,g_-(x,y)))\,\mathrm dx\,\mathrm dy
+    \end{align*}
+    Now note that
+    $$\mathrm d\underline{S}=\frac{\partial\underline{x}}{\partial x}\times\frac{\partial\underline{x}}{\partial y}\,\mathrm dx\,\mathrm dy=\begin{pmatrix}
+        -\partial g_\pm/\partial x\\
+        -\partial g_\pm/\partial y\\
+        1
+    \end{pmatrix}\,\mathrm dx\,\mathrm dy$$
+    Now we need the normal to point out of $V$, hence on $S_\pm$.
+    $$\mathrm d\underline{S}=\pm\begin{pmatrix}
+        -\partial g_\pm/\partial x\\
+        -\partial g_\pm/\partial y\\
+        1
+    \end{pmatrix}\,\mathrm dx\,\mathrm dy$$
+    So
+    $$\int_{\partial V}F_z\underline{e_z}\cdot\mathrm d\underline{S}=\iint_A(F_z(x,y,g_+(x,y))-F_z(x,y,g_-(x,y)))\,\mathrm dx\,\mathrm dy=\int_V\frac{\partial F_z}{\partial z}\,\mathrm dV$$
+    Now we can do the same thing on $F_y\underline{e_y}$ and $F_x\underline{e_x}$, so adding them up gives the theorem by linearity.
+\end{proof}
+Note that the same proof works for two dimensional case.
+Now we want to proof Green's Theorem by the divergence theroem in two dimensions.
+After that we shall prove that Green's Theorem implies Stokes' Theorem.
+\begin{proof}[Proof of Green's using Divergence]
+    Consider the vector field $\underline{F}=(Q,-P)$, so by Divergence Theorem,
+    \begin{align*}
+        \iint_A\left( \frac{\partial Q}{\partial x}-\frac{\partial P}{\partial y} \right)\,\mathrm dx\,\mathrm dy
+        &=\int_A\nabla\cdot\underline{F}\,\mathrm dA\\
+        &=\oint_{\partial A}\underline{F}\cdot\underline{n}\,\mathrm ds\\
+        &=\oint_{\partial A}\begin{pmatrix}
+            Q\\
+            -P
+        \end{pmatrix}\cdot\begin{pmatrix}
+            y^\prime(s)\\
+            -x^\prime(s)
+        \end{pmatrix}\,\mathrm ds\\
+        &=\oint_{\partial A}P\,\mathrm dx+Q\,\mathrm dy
+    \end{align*}
+    which is precisely Green's.
+\end{proof}
+\begin{proof}[Proof of Stokes' by Green's]
+    For $A\subset\mathbb R^2,Q=Q(u,v),P=P(u,v)$, we have
+    $$\iint_A\left( \frac{\partial Q}{\partial u}-\frac{\partial P}{\partial v} \right)\,\mathrm du\,\mathrm dv=\oint_{\partial A}P\,\mathrm du+Q\,\mathrm dv$$
+    Consider the surface $S=\{\underline{x}(u,v):(u,v)\in A\}$ and boundary $\partial S=\{\underline{x}(u,v):(u,v)\in\partial A\}$.
+    Choose
+    $$\begin{cases}
+        P=\underline{F}(\underline{x}(u,v))\cdot\partial\underline{x}/\partial u\\
+        Q=\underline{F}(\underline{x}(u,v))\cdot\partial\underline{x}/\partial v
+    \end{cases}$$
+    Note that
+    \begin{align*}
+        P\,\mathrm du+Q\,\mathrm dv
+        &=\underline{F}(\underline{x}(u,v))\cdot\frac{\partial\underline{x}}{\partial u}\,\mathrm du+\underline{F}(\underline{x}(u,v))\cdot\frac{\partial\underline{x}}{\partial v}\,\mathrm dv\\
+        &=\underline{F}(\underline{x}(u,v))\cdot\left( \frac{\partial\underline{x}}{\partial u}\,\mathrm du+\frac{\partial\underline{x}}{\partial v}\,\mathrm dv \right)\\
+        &=\underline{F}(\underline{x}(u,v))\cdot\mathrm d\underline{x}(u,v)\\
+        \implies \oint_{\partial A}P\,\mathrm du+Q\,\mathrm dv&=\oint_{\partial S}\underline{F}\cdot\mathrm d\underline{x}
+    \end{align*}
+    On the other hand, we can differentiate to get
+    \begin{align*}
+        \frac{\partial Q}{\partial u}&=\frac{\partial}{\partial u}\left( \underline{F}(\underline{x}(u,v))\cdot\partial\underline{x}/\partial v \right)\\
+        &=\frac{\partial x_j}{\partial u}\frac{\partial F_i}{\partial x_j}\frac{\partial x_i}{\partial v}+F_i(\underline{x}(u,v))\frac{\partial^2 x_i}{\partial u\partial v}
+    \end{align*}
+    Similarly
+    $$\frac{\partial P}{\partial v}=\frac{\partial x_j}{\partial v}\frac{\partial F_i}{\partial x_j}\frac{\partial x_i}{\partial u}+F_i(\underline{x}(u,v))\frac{\partial^2 x_i}{\partial v\partial u}$$
+    Now combining these two and using the symmetries in second partial derivatives,
+    \begin{align*}
+        \left(\frac{\partial Q}{\partial u}-\frac{\partial P}{\partial v}\right)\,\mathrm du\,\mathrm dv&=\left(\frac{\partial x_j}{\partial u}\frac{\partial F_i}{\partial x_j}\frac{\partial x_i}{\partial v}-\frac{\partial x_j}{\partial v}\frac{\partial F_i}{\partial x_j}\frac{\partial x_i}{\partial u}\right)\,\mathrm du\,\mathrm dv\\
+        &=(\nabla\times\underline{F})\cdot\left( \frac{\partial\underline{x}}{\partial u}\times\frac{\partial\underline{x}}{\partial v} \right)\,\mathrm du\,\mathrm dv\\
+        &=(\nabla\times\underline{F})\cdot\mathrm d\underline{S}
+    \end{align*}
+    Combining this with Green's Theorem gives the result.
+\end{proof}

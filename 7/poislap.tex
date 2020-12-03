@@ -1,0 +1,261 @@
+\section{Poisson and Laplace Equations}
+\subsection{The Boundary Value Problem}
+Many problems in mathematical physics can be reduced to the form:
+$$\nabla^2\phi=F$$
+where $F$ is known.
+This form of equations are called Poisson's Equation.
+In particular, if $F\equiv 0$, this is called Laplace's Equation.
+We would want to solve them in either all of $\mathbb R^n$ or on some domain $\Omega\subset\mathbb R^n$.
+We are, sometimes, only interested in the cases $n=2,3$.
+Note that we require $\phi$ to be well-defined and smooth on all of $\Omega$.
+For example, it is true that $\nabla^2(1/|\underline{x}|)=0$ for $\underline{x}\neq\underline{0}$, however it is not true for any domain containing $\underline{0}$.
+We would want to solve this PDE subject to some boundary conditions, so $\phi$ will have predetermined behaviour in $\partial\Omega$ or as $|\underline{x}|\to\infty$ when working in $\mathbb R^n$.\\
+Two widely studied boundary conditions are the Dirichlet Problem
+$$\begin{cases}
+    \nabla^2\phi=F\text{, on $\Omega$}\\
+    f\text{, on $\partial\Omega$}
+\end{cases}$$
+and the Neumann Problem
+$$\begin{cases}
+    \nabla^2\phi=F\text{, on $\Omega$}\\
+    \partial\phi/\partial\underline{n}=\underline{n}\cdot\nabla\phi=g\text{, on $\partial\Omega$}
+\end{cases}$$
+Beware that we must interpret boundary data (or boundary conditions) correctly.
+We want $\phi$ or $\partial\phi/\partial\underline{n}$ to approach the boundary data continuously as $\underline{x}$ tends towards the boundary.
+So apart from requiring $\phi$ to be $C^2$ in $\Omega$, it must also extend to $\partial\Omega$ continuously.
+\begin{example}[Non-example]
+    If we want to solve the Navier-Stokes Equation
+    $$\frac{\partial\underline{u}}{\partial t}+(\underline{u}\cdot\nabla)\underline{u}-\nu\nabla^2\underline{u}=-\nabla p,\nabla\cdot\underline{u}=0,\underline{u}(\underline{x},0)=\underline{u_0}(\underline{x})$$
+    but ignore the condition on continuous extension we said earlier, then the following solution satisfies the equation
+    $$\underline{u}=\begin{cases}
+        0\text{, if $t>0$}\\
+        \underline{u_0}\text{, if $t=0$}
+    \end{cases},p\equiv 0$$
+    But obviously we are not getting a million for it.
+\end{example}
+\begin{example}
+    Let $r=|\underline{x}|$, we consider the Dirichlet Problem
+    $$\begin{cases}
+        \nabla^2\phi=r\text{, for $r<a$}\\
+        \phi=1\text{, for $r=a$}
+    \end{cases}$$
+    By symmetry, we want to write $\phi=\phi(r)$, so
+    $$r=\nabla^2\phi=\frac{1}{r^2}\frac{\mathrm d}{\mathrm dr}\left( r^2\frac{\mathrm d\phi}{\mathrm dr} \right)\implies \phi=\frac{r^3}{12}-\frac{A}{r}+B$$
+    The boundary condition then implies
+    $$\phi(r)=1+\frac{r}{12}(r^2-a^2)$$
+\end{example}
+Consider now a generic linear problem, say $L\phi=F$ in $\Omega$ and $B\phi=f$ on $\partial\Omega$ where $L,B$ are linear differential operators.
+Suppose $\phi_1,\phi_2$ are solutions to the system, then if we let $\psi=\phi_1-\phi_2$, we have $L\psi=B\psi=0$.
+If we can show that this solves to $\psi=0$, then we know the uniqueness of the solution to our original equation.
+So solution to a linear problem is unique iff the only solution to the corresponding homogeneous problem is $0$.
+\begin{proposition}
+    Solution to the Dirichlet Problem is unique.
+    Solution to the Neumann Problem is unique up to a constant.
+\end{proposition}
+\begin{proof}
+    Consider the homogeneous problem
+    $$\begin{cases}
+        \nabla^2\psi=0\text{, in $\Omega$}\\
+        B\psi=0\text{, in $\partial\Omega$}
+    \end{cases}$$
+    where $B\psi=\psi$ in the Dirichlet case and $B\psi=\partial\psi/\partial\underline{n}$ in the Neumann case.
+    Consider
+    $$I[\phi]=\int_\Omega|\nabla\psi|^2\,\mathrm dV\ge 0$$
+    But we have
+    \begin{align*}
+        I[\phi]&=\int_\Omega\nabla\cdot(\psi\nabla\psi)-\psi\nabla^2\psi\,\mathrm dV\\
+        &=\int_\Omega\nabla\cdot(\psi\nabla\psi)\,\mathrm dV\\
+        &=\int_{\partial\Omega}\psi\nabla\psi\cdot\mathrm d\underline{S}\\
+        &=\int_{\partial\Omega}\psi\frac{\partial\phi}{\partial\underline{n}}\,\mathrm dS\\
+        &=0
+    \end{align*}
+    in both cases, $\nabla\psi=0$ thoughout $\Omega$, so $\psi$ is continuous throughout $\Omega$.
+    So for the Dirichlet Problem we have $\psi\equiv 0$ and $\psi$ is constant in the Neumann Problem.
+\end{proof}
+\begin{example}
+    Consider the charge distribution (where $r=\underline{\underline{x}}$),
+    $$\rho(\underline{x})=\begin{cases}
+        0\text{, if $r<a$}\\
+        F(r)\text{, if $r\ge a$}
+    \end{cases}$$
+    The corresponding potential $\phi$ for electric field $\underline{E}=-\nabla\phi$ would have
+    $$\nabla^2\phi=-\epsilon_0^{-1}\rho$$
+    On $r<a$, we have $\nabla^2\phi=0$, so by symmetry, we write $\phi=\phi(r)$.
+    Note that on $r=a$, $\phi=\phi(a)$ is a constant.
+    We can see that $\phi(r)=\phi(a)$ on $r<a$ actually works, but by the preceding proposition, it is the solution on $r<a$, so $\underline{E}\equiv \underline{0}$ on $r<a$.\\
+    This looks like the Newton's Shell Theorem.
+\end{example}
+\subsection{Gauss's Flux Method}
+There is a clever way to get particular solutions to Poisson's Equation when the forcing term has spherical symmetry.
+Suppose the forcing term is in the form $F(r)$ where $r=|\underline{x}|$, and we are interested in a particular solution of the equation $\nabla^2\phi=F(r)$.
+We want to look for solutions of the form $\phi=\phi(r)$, in which case $\nabla\phi=\phi^\prime(r)\underline{e_r}$.
+If we integrate this over the ball $|\underline{x}|\le R$, then since $\nabla^2=\nabla\cdot\nabla$,
+$$\int_{|\underline{x}|\le R}F\,\mathrm dV=\int_{|\underline{x}|\le R}\nabla^2\phi\,\mathrm dV=\int_{|\underline{x}|=R}\nabla\phi\cdot\mathrm d\underline{S}$$
+by Divergence Theorem.
+Note that $\mathrm d\underline{S}=\underline{e_r}\mathrm dS$, so
+$$\int_{|\underline{x}|=R}\nabla\phi\cdot\mathrm d\underline{S}=\int_{|\underline{x}|=R}\phi^\prime(r)\,\mathrm dS=\phi^\prime(R)\int_{|\underline{x}|=R}\mathrm dS=4\pi R^2\phi^\prime(R)$$
+Define
+$$Q(R)=\int_{|\underline{x}|\le R}F(r)\,\mathrm dV$$
+then $Q(R)=4\pi R^2\phi^\prime(R)$.
+If $F$ is interpreted as the charge density, then we can interpret $Q(R)$ as total charge (or other stuff) inside the ball of radius $R$.
+We can integrate this to get a particular solution.
+In particular, we observe that $\phi^\prime(R)=Q(R)/(4\pi R^2)$, which is just the inverse square law.
+\begin{example}
+    Consider charge density
+    $$\rho(r)=\begin{cases}
+        \rho_0\text{, if $r\le a$}\\
+        0\text{, otherwise}
+    \end{cases}$$
+    The electric field corresponding to $\rho$ satisfies $\nabla\cdot\underline{E}=\epsilon_0^{-1}\rho$.
+    In electrostatics, $\underline{E}=-\nabla\phi$ for a potential $\phi$, so we have
+    $$\nabla^2\phi=-\frac{\rho}{\epsilon_0}$$
+    By previous calculations
+    $$\phi^\prime(R)=-\frac{1}{4\pi\epsilon_0}\frac{Q(R)}{R^2},Q(R)=\begin{cases}
+        4\pi R^3\rho_0/3\text{, if $R\le a$}\\
+        Q=Q(a)=4\pi a^3\rho_0/3\text{, otherwise}
+    \end{cases}$$
+    So for $r>a$, we have
+    $$\phi^\prime(r)=-\frac{1}{4\pi\epsilon_0}\frac{Q}{r^2}\implies\underline{E}(r)=\frac{1}{4\pi\epsilon_0}\frac{Q}{r^2}\underline{e_r}$$
+    Let $a\to 0$ in such a way that $a^3\rho_0$ remains constant (so we change $\rho_0$), so $Q$ remains constant.
+    Therefore the electric field induced by a point charge $Q$ at $\underline{x}=\underline{0}$ would have
+    $$\underline{E}(\underline{x})=\frac{1}{4\pi\epsilon_0}\frac{Q}{r^2}\underline{e_r}=\frac{1}{4\pi\epsilon_0}\frac{Q}{|\underline{x}|^3}\underline{x},\phi(\underline{x})=\frac{1}{4\pi\epsilon_0}\frac{Q}{|\underline{x}|}$$
+    for $r>0$ and $\phi(\infty)=0$.
+\end{example}
+Just an aside, if we want the existece of solutions to $-\nabla^2\phi=\epsilon_0^{-1}\rho(\underline{x})$, Gauss proved that it suffices to consider equations of the form $K\sigma=f$ which looks like linear algebra, but in a infinite dimensional vector spaces, where we no longer have sequential compactness.
+This induces the study of functional analysis and operator theory.\\
+Suppose we have $F=F(\rho)$ where $\rho=x^2+y^2$.
+To solve $\nabla^2\varphi=F(\rho)$, it is natural to try solutions of the form $\varphi=\varphi(\rho)$.
+In this case, $\nabla\varphi=\varphi^\prime(\rho)\underline{e_\rho}$, so obviously we want to integrate it over a cylinder $V$ of height $1$, $V=\{0\le\rho\le R,0\le\phi\le 2\pi,z_0\le z\le z_0+1\}$, as $\underline{e_\rho}\perp\underline{e_z}$,
+$$Q(R)=\int_VF\,\mathrm dV=\int_{\partial V}\nabla\varphi\cdot\mathrm d\underline{S}=\varphi^\prime(R)2\pi R\implies\varphi^\prime(R)=\frac{Q(R)}{2\pi R}$$
+Note that by calculation we have
+$$Q(R)=2\pi\int_0^RF(\rho)\rho\,\mathrm d\rho\implies\varphi^\prime(\rho)=\frac{1}{R}\int_0^RF(\rho)\rho\,\mathrm d\rho$$
+\begin{example}
+    Due to conflicts of notation we write $s^2=x^2+y^2$ instead of $\rho$ (as we want to do electromagnetism).
+    Suppose we have charge density
+    $$\rho(s)=\begin{cases}
+        \rho_0\text{, for $s\le a$}\\
+        0\text{, otherwise}
+    \end{cases}$$
+    For electrostatic potential $\varphi$, we still have $-\nabla^2\varphi=\epsilon_0^{-1}\rho$, so
+    $$\varphi^\prime(R)=-\frac{1}{\epsilon_0R}\int_0^R\rho(s)s\,\mathrm ds=\begin{cases}
+        -\epsilon_0^{-1}R^{-1}\rho_0R^2/2\text{, if $R\le a$}\\
+        -\epsilon_0^{-1}R^{-1}\rho_0a^2/2\text{, otherwise}\\
+    \end{cases}$$
+    Then shrink $a\to 0$ with $\rho_0a^2$ fixed, then we have $\underline{E}\propto s^{-1}\underline{e_s}$, which is similar to the superposition a bunch of point charges in a line.
+\end{example}
+\subsection{The Superposition Principle}
+For a linear problem, we can (most of the time) solve them by their defining property of being linear.
+Say if we have $L\psi_n=F_n$, then $L(\sum_n\psi_n)=\sum_nF_n$.
+This allows us to superpose solutions.
+If we write a forcing term $F$ as $\sum_nF_n$ and solve for $\psi_n$ individually, then we can obtain the required solution by summing up all of them.
+\begin{example}
+    1. Recall the solutions for an electric potential $\phi$ and electric field $\underline{E}=-\nabla\phi$.
+    For charge distribution with spherical symmetry, can be found by e.g. Gauss's flux method.
+    If we shrink the radius to $0$, we obtain a point charge $Q_{\underline{a}}$ for at $\underline{a}$ where
+    $$\phi(\underline{x})=\frac{Q_{\underline{a}}}{4\pi\epsilon_0}\frac{1}{|\underline{x}-\underline{a}|}$$
+    and $\rho(\underline{x})=Q_{\underline{a}}\delta(\underline{x}-\underline{a})$.
+    For consistency with Gauss's Law, we shall (and indeed can) obtain
+    $$\nabla^2\left( -\frac{1}{4\pi}\frac{1}{|\underline{x}-\underline{a}|} \right)=\delta(\underline{x}-\underline{a})$$
+    Now consider the electric potential due to $2$ charges $Q_{\underline{a}},Q_{\underline{b}}$ at $\underline{x}=\underline{a},\underline{b}$.
+    The charge distribution would be $Q_{\underline{a}}\delta(\underline{x}-\underline{a})+Q_{\underline{b}}\delta(\underline{x}-\underline{b})$, so we can superpose the solutions correspondingly in Gauss's Law to get the potential
+    $$\phi(\underline{x})=\frac{Q_{\underline{a}}}{4\pi\epsilon_0}\frac{1}{|\underline{x}-\underline{a}|}+\frac{Q_{\underline{b}}}{4\pi\epsilon_0}\frac{1}{|\underline{x}-\underline{b}|}$$
+    2. We want to find the potential outside the solid sphere $|\underline{x}|\le R$ of uniform charge density $\rho_0$, from which several spheres $|\underline{x}-\underline{a_i}|\le R_i$ with $i=1,2,\ldots,n$ are removed (given that the spheres do not cross the boundary).
+    To find the solution, we can superpose the solution for the charge distribution $\rho_0$ for $|\underline{x}|\le R$ and the solutions for the charge distribution $-\rho_0$ for $|\underline{x}-\underline{a_i}|\le R_i$.
+    So
+    $$\phi(\underline{x})=\frac{1}{4\pi\epsilon_0}\left( \frac{Q}{|\underline{x}|}-\sum_{i=1}^n\frac{Q_i}{|\underline{x}-\underline{a_i}|} \right),Q=\frac{4}{3}\pi R^3\rho_0,Q_i=\frac{4}{3}\pi R_i^3\rho_0$$
+    for $|\underline{x}|>R$.
+\end{example}
+\subsection{Integral Solutions}
+In the examples above, we found solutions by superposing (or superimposing) potentials corresponding to charges in different points, which gives solutions of the form
+$$\sum_i\frac{Q_i}{4\pi\epsilon_0}\frac{1}{|\underline{x}-\underline{a_i}|}$$
+This leads to a more general form of superposition of potentials, by thinking of each infinitesimal part as individual point charges, which is just a integral in the following form:
+$$\int_{\mathbb R^3}\frac{F(\underline{y})}{|\underline{x}-\underline{y}|}\,\mathrm dV(\underline{y})$$
+Up to some factor.
+\begin{proposition}
+    The unique solution to the Dirichlet problem
+    $$\begin{cases}
+        \nabla^2\phi=F\text{, in $\mathbb R^3$}\\
+        \phi(\underline{x})\to 0\text{ as $|\underline{x}|\to\infty$}
+    \end{cases}$$
+    (Assuming $F$ decreases sufficiently rapidly as $|\underline{x}|\to\infty$) is
+    $$\phi(\underline{x})=-\frac{1}{4\pi}\int_{\mathbb R^3}\frac{F(\underline{y})}{|\underline{x}-\underline{y}|}\,\mathrm dV$$
+\end{proposition}
+\begin{proof}
+    The solution can be verified by using
+    $$\nabla\left( -\frac{1}{4\pi}\frac{1}{|\underline{x}-\underline{a}|} \right)=\delta(\underline{x}-\underline{a})$$
+    And differentiating under the integral sign.
+\end{proof}
+To justify (in an applied way, of course) the identity used above, we use the divergence theorem,
+\begin{align*}
+    \int_{|\underline{x}|\le R}\nabla^2\left( \frac{1}{|\underline{x}|} \right)\,\mathrm dV&=\int_{|\underline{x}|=R}\nabla\left( \frac{1}{r} \right)\cdot\mathrm d\underline{S}\\
+    &=-\frac{1}{R^2}\int_{|\underline{x}|=R}\underline{e_r}\cdot\underline{e_r}\,\mathrm dS\\
+    &=\frac{1}{R^2}4\pi R^2\\
+    &=4\pi
+\end{align*}
+which is true for any $R>0$, so it is natural (or maybe not) to write the identity.\\
+The solution can be regarded as the sum of contributions to the potential to any possible volume elements (that actually contribute).
+\subsection{Harmonic Functions}
+If $\phi=\phi(\underline{x})$ satisfies Laplace's Equation $\nabla^2\phi=0$, then $\phi$ is harmonic.
+\begin{proposition}[Mean-Value Property]
+    If $\varphi$ is harmonic on some open $\Omega\subset\mathbb R^3$, then
+    $$\varphi(\underline{a})=\frac{1}{4\pi r^2}\int_{|\underline{x}-\underline{a}|=r}\varphi(\underline{x})\,\mathrm dS$$
+    where $\underline{a}\in\Omega$ and the ball centered at $\underline{a}$ with radius $r$ is contained in $\Omega$.
+\end{proposition}
+\begin{proof}
+    Define a function
+    \begin{align*}
+        f(r)&=\frac{1}{4\pi r^2}\int_{|\underline{x}-\underline{a}|=r}\varphi(\underline{x})\,\mathrm dS\\
+        &=\frac{1}{4\pi r^2}\int_{|\underline{x}|=r}\varphi(\underline{x}+\underline{a})\,\mathrm dS\\
+        &=\frac{1}{4\pi r^2}\int_0^{2\pi}\int_0^\pi \varphi(\underline{a}+r\underline{e_r})r^2\sin\theta\,\mathrm d\theta\,\mathrm d\phi\\
+        &=\frac{1}{4\pi}\int_0^{2\pi}\int_0^\pi \varphi(\underline{a}+r\underline{e_r})\sin\theta\,\mathrm d\theta\,\mathrm d\phi
+    \end{align*}
+    So differentiating this gives
+    \begin{align*}
+        f^\prime(r)&=\frac{1}{4\pi}\int_0^{2\pi}\int_0^\pi \nabla\varphi(\underline{a}+r\underline{e_r})\cdot\underline{e_r}\sin\theta\,\mathrm d\theta\,\mathrm d\phi\\
+        &=\frac{1}{4\pi r^2}\int_{|\underline{x}|=r}\nabla\varphi(\underline{a}+\underline{x})\cdot\mathrm d\underline{S}\\
+        &=\frac{1}{4\pi r^2}\int_{|\underline{x}|\le r}\nabla^2\varphi(\underline{a}+\underline{x})\,\mathrm dV\\
+        &=0
+    \end{align*}
+    So $f$ is constant.
+    Let $r\to 0$ gives $f\equiv \varphi(\underline{a})$.
+\end{proof}
+\begin{proposition}
+    For a smooth function $\varphi$
+    $$\nabla^2\varphi=\lim_{r\to 0}\frac{6}{r^2}\left(\frac{1}{4\pi r^2}\int_{|\underline{x}-\underline{a}|=r}\varphi(\underline{x})\,\mathrm dS-\varphi(\underline{a})\right)$$
+\end{proposition}
+\begin{proof}
+    Consider the function
+    $$g(r)=\frac{1}{4\pi r^2}\int_{|\underline{x}-\underline{a}|=r}\varphi(\underline{x})\,\mathrm dS-\varphi(\underline{a})$$
+    then use the same trick as above, we have
+    $$g^\prime(r)=\frac{1}{4\pi r^2}\int_{|\underline{x}|\le r}\nabla^2\varphi(\underline{x})\,\mathrm dV$$
+    But
+    \begin{align*}
+        \int_{|\underline{x}|\le r}\nabla^2\varphi(\underline{x})\,\mathrm dV&=\int_{|\underline{x}|\le r}\nabla^2\varphi(\underline{a})\,\mathrm dV+\left( \int_{|\underline{x}|\le r}\nabla^2\varphi(\underline{x})-\nabla^2\varphi(\underline{a})\,\mathrm dV \right)\\
+        &=\frac{4\pi r^3}{3}\nabla^2\varphi(\underline{a})+o(r^3)
+    \end{align*}
+    as $r\to 0$.
+    So
+    $$g^\prime(r)=\frac{r}{3}\nabla^2\varphi(\underline{a})+o(r)$$
+    But then $g^\prime(r)=g^\prime(0)+rg^\prime(0)+o(r)$ by Taylor's Theorem, so $g^\prime(0)=0,g^{\prime\prime}(0)=3^{-1}\nabla^2\varphi(\underline{a})$.
+    So
+    $$g(r)=g(0)+rg^\prime(0)+r^2\frac{g^{\prime\prime}(0)}{2}+o(r^2)=\frac{r^2}{6}\nabla^2\varphi(\underline{a})+o(r^2)$$
+    So taking the stated limit gives the solution.
+\end{proof}
+So the Laplacian measures how much the value of the function at the point differs from the average of the values on the infinitesimal sphere centered at the same point.
+\begin{proposition}[Maximum Principle]
+    If $\varphi$ is harmonic on an open, path-connected $\Omega\in\mathbb R^3$, then there is an $\underline{a}\in\Omega$ such that $\varphi(\underline{x})\le\varphi(\underline{a})$ throughout $\Omega$, then $\varphi$ is constant.
+\end{proposition}
+\begin{proof}
+    If $\varphi$ is harmonic, then the mean-value property holds, so
+    $$\varphi(\underline{a})=\frac{1}{4\pi\epsilon^2}\int_{|\underline{x}-\underline{a}|=\epsilon}\varphi(\underline{x})\,\mathrm dS$$
+    for $\epsilon$ sufficiently small.
+    If $\varphi(\underline{x})\le\varphi(\underline{a})$ throughout $\Omega$, then
+    $$0=\frac{1}{4\pi\epsilon^2}\int_{|\underline{x}-\underline{a}|=\epsilon}\varphi(\underline{a})-\varphi(\underline{x})\,\mathrm dS$$
+    But the integrand is nonnegative, so we must have $\varphi(\underline{x})=\varphi(\underline{a})$ for any $\underline{x}$ in the sphere we are integrating, hence the ball enclosed.
+    Now take any $\underline{y}\in\Omega$ and consider a path joining $\underline{a}$ and $\underline{y}$.
+    Then by compactness, there is a finite collection of spheres in $\Omega$ whose interior covers the path.
+    But then each adjascent two of them will share at least one interior points, and if $f$ achieve $f(\underline{a})$ at that point, then $f(\underline{x})\le f(\underline{a})$ for any $\underline{x}$ in each ball, so use the argument inductively gives $f(\underline{y})=f(\underline{a})$.
+\end{proof}
+One can also prove the last part without introducing compactness:
+Assuming that we have already shown that for any $\underline{b}\in\Omega$ with $\varphi(\underline{b})=\alpha=\varphi(\underline{a})$, there is some $\epsilon>0$ such that $\varphi(\underline{x})=\varphi(\underline{b})=\alpha$ for any $|\underline{x}-\underline{b}|<\epsilon$ (by e.g. the first part of our proof above).
+Consider the set $\varphi^{-1}(\{\alpha\})$, which is closed by continuity and open by above, which contradicts the path-connectedness (hence connectedness) of $\Omega$.

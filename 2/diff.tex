@@ -1,0 +1,153 @@
+\section{Coordinates, Differentials and Gradients}
+\subsection{Differentials and First-Order Changes}
+Recall that if $f=f(u_1,\ldots,u_n)$, then we write $\mathrm df=(\partial f/\partial u_i)\,\mathrm du_i$ (the summation convention is being used).
+Those $\mathrm du_i$ are formal objects called differential forms which are quite abstract geometrical notions that are way beyond the scope of this course.
+These differential forms are taken as linearly independent the same way as vectors are.
+Similarly, if $\underline{x}=\underline{x}(u_1,u_2,\ldots,u_n)$, then $\mathrm d\underline{x}=(\partial \underline{x}/\partial u_i)\,\mathrm du_i$.
+\begin{example}
+    If $f(u,v,w)=u^2-v^2+e^w$, then $\mathrm df=2u\,\mathrm du-2v\,\mathrm dv+e^w\,\mathrm dw$.
+    If $\underline{x}=(u^2,v^2,w^2)^\top$, then $\mathrm d\underline{x}=(2u\,\mathrm du,2v\,\mathrm dv,2w\,\mathrm dw)^\top$.
+\end{example}
+Differential forms give a great tool to describe first-order changes.
+If we perturb a multivariable function $f(u_1,\ldots,u_n)$, then we can have
+$$f(u_1+\epsilon_1,\ldots,u_n+\epsilon_n)=f(u_1,\ldots,u_n)+\frac{\partial f}{\partial u_i}\epsilon_i+o(\|\underline{\epsilon}\|)$$
+We can get the chain rule ``for free'' by using this notion.
+Suppose we change our coordinates by $v_i=v_i(u_1,\ldots,u_n)$ and $F(u_1,\ldots,u_n)=f(v_1,\ldots,v_n)$, so
+$$\frac{\partial F}{\partial u_i}\,\mathrm du_i=dF=df=\frac{\partial f}{\partial v_j}\,\mathrm dv_j=\frac{\partial f}{\partial v_j}\frac{\partial v_j}{\partial u_i}\,\mathrm du_i$$
+Therefore
+\begin{theorem}
+    $$\frac{\partial F}{\partial u_i}=\frac{\partial f}{\partial v_j}\frac{\partial v_j}{\partial u_i}$$
+\end{theorem}
+Note that the summation convention is implicitly used.
+\subsection{Coordinates in Line Elements}
+Say $u,v$ are coordinates for $\mathbb R^2$ by relating them to Cartesians in the form $x=x(u,v),y=y(u,v)$ such that these smooth functions can be inverted smoothly to give $u=u(x,y),v=v(x,y)$.
+\begin{example}
+    Consider the polar coordinate $(r,\theta)$ with the relationship $x=r\cos\theta,y=r\sin\theta$.
+    We can invert to have $r=\sqrt{x^2+y^2},\tan\theta=x/y$.
+    \footnote{This is not quite invertible at $(x,y)=(0,0)$.
+    Just saying.}
+\end{example}
+\begin{example}
+    1. The Cartesian coordinate in $\mathbb R^2$ is $\underline{x}=\underline{x}(x,y)=(x,y)^\top$.
+    \footnote{For future reference, any column vector in this course are implicitly written as per the standard basis unless otherwise specified.}
+    Note that $\underline{x}_x,\underline{x}_y$ give the standard basis, so $\mathrm d\underline{x}=(\mathrm dx,\mathrm dy)^\top$.\\
+    2. The polar coordinate defined above, $\underline{x}=(r\cos\theta,r\sin\theta)^\top$ has
+    $$\underline{x}_r=(\cos\theta,\sin\theta),\underline{x}_\theta=(-r\sin\theta,r\cos\theta)$$
+    which becomes an orthonormal basis (which depends on $(r,\theta)$) if we normalize.
+    So the line element has
+    $$\mathrm d\underline{x}=\begin{pmatrix}
+        \cos\theta\\\sin\theta
+    \end{pmatrix}\,\mathrm dr+r\begin{pmatrix}
+        -\sin\theta\\\cos\theta
+    \end{pmatrix}\,\mathrm d\theta$$
+    So small change in the line element can result in a large change in the coordinate $\mathrm d\theta$.
+    The basis vectors above give the rotation basis.
+\end{example}
+\begin{definition}
+    We say $u,v,w$ are set of orthogonal curvilinear coordinates for $\mathbb R^3$ if the unit vectors $\underline{e}_u=\underline{x}_u/\|\underline{x}_u\|,\underline{e}_v=\underline{x}_v/\|\underline{x}_v\|,\underline{e}_w=\underline{x}_w/\|\underline{x}_w\|$ always forms a right-handed system of orthonormal vectors.
+\end{definition}
+\begin{definition}
+    The scale factors are
+    $$h_{u}=\left|\frac{\partial \underline{x}}{\partial u}\right|,h_{v}=\left|\frac{\partial \underline{x}}{\partial v}\right|,h_{w}=\left|\frac{\partial \underline{x}}{\partial w}\right|$$
+\end{definition}
+So the factors are the scaling factors for a little change in the corresponding coordinates.
+\begin{definition}
+    The cylindral polar coordinates are $(\rho,\phi,z)$ where
+    $$\underline{x}=\underline{x}(\rho,\phi,z)=(\rho\cos\phi,\rho\sin\phi,z)^\top$$
+\end{definition}
+\begin{definition}
+    The spherical polar coordinates are $(r,\theta,\phi)$ where
+    $$\underline{x}=\underline{x}(r,\theta,\phi)=(r\cos\phi\sin\theta, r\sin\phi\sin\theta,r\cos\theta)$$
+\end{definition}
+\subsection{The Gradient Operator}
+For $f:\mathbb R^3\to\mathbb R$, define the gradientof $f$, $\nabla f$, by
+$$f(\underline{x}+\underline{h})=f(\underline{x})+\nabla f(\underline{x})\cdot\underline{h}+o(\underline{h})$$
+\begin{definition}
+    The directional derivative of $f$ in direction $\underline{v}$ by
+    $$D_{\underline{v}}f(\underline{x})=\lim_{t\to 0}\frac{f(\underline{x}+t\underline{v})-f(\underline{x})}{t}$$
+    So $f(\underline{x}+t\underline{v})=f(\underline{x})+tD_{\underline{v}}f(\underline{x})+o(t)$.
+\end{definition}
+So if we let $\underline{h}=t\underline{v}$, we have
+$$f(\underline{x}+t\underline{v})=f(\underline{x})+\nabla f(\underline{x})\cdot t\underline{v}+o(t)$$
+So we have $\nabla f(\underline{x})\cdot \underline{v}=D_{\underline{v}}f(\underline{x})$.
+By Cauchy-Schwartz, to maximize a dot product we will have to make the two vectors parallel, so
+\begin{proposition}
+    $\nabla f(\underline{x})$ is the direction of greatest increase of $f$ at $\underline{x}$.
+\end{proposition}
+\begin{proof}
+    Cauchy-Schwartz.
+\end{proof}
+\begin{example}
+    1. $f(\underline{x})=|\underline{x}|^2/2$, so
+    $$f(\underline{x}+\underline{h})=(\underline{x}+\underline{h})\cdot(\underline{x}+\underline{h})/2=f(\underline{x})+\underline{x}\cdot\underline{h}+o(\underline{h})$$
+    Hence $\nabla f(\underline{x})=\underline{x}$.\\
+    2. For generic curve $t\mapsto \underline{x}(t)$ and a function $F$, we want to evaluate $(F\circ \underline{x})^\prime$, so
+    $$F(\underline{x}(t+\delta t))=F(\underline{x}(t)+\underline{\delta x})=F(\underline{x}(t))+\nabla f(\underline{x}(t))\cdot\underline{\delta x}+o(\underline{\delta x})$$
+    where $\underline{\delta x}=\underline{x}(t+\delta t)-\underline{x}(t)=t\underline{x}^\prime(t)+o(t)$.
+    So plugging it in we have
+    $$\frac{\mathrm dF}{\mathrm dt}=\nabla F(\underline{x}(t))\cdot \underline{x}^\prime(t)$$
+    3. Consider a surface in $\mathbb R^3$ by $S=\{\underline{x}:f(\underline{x})=0\}$ where $f:\mathbb R^3\to\mathbb R$.
+    Take curve $t\mapsto \underline{x}(t)$ such that $\underline{x}\in S$ for all $t$, then $0=\underline{x}^\prime(t)\cdot\nabla F(\underline{x}(t))$, so $\nabla F$ is perpendicular to the tangent to the curve.
+    Hence necessarily $\nabla F$ is the normal to $S$.
+\end{example}
+\subsection{Computing the Gradient}
+For general orthogonal curvilinear coordinate, it might be hard to calculate $\nabla f$ since we do not usually know how to change the coordinates to accomodate the change $\underline{h}$.\\
+But it is easy in Cartesians.
+Just evaluating the directional derivatives at the basis vectors reveals:
+\begin{proposition}
+    $$\nabla f=\begin{pmatrix}
+        \partial f/\partial x\\
+        \partial f/\partial y\\
+        \partial f/\partial z
+    \end{pmatrix}$$
+\end{proposition}
+\begin{proof}
+    We have
+    $$(\nabla f(\underline{x}))_i=\nabla f(\underline{x})\cdot\underline{e_i}=D_{\underline{e_i}}f(\underline{x})$$
+    As desired.
+\end{proof}
+\begin{example}
+    Again we take $f(\underline{x})=|\underline{x}|^2/2$, then $(\nabla f(\underline{x}))_i=x_i$, so $\nabla f(\underline{x})=\underline{x}$ as before.
+\end{example}
+In Cartesians, we know the line elements $\mathrm d\underline{x}=\mathrm dx_i\underline{e_i}$ which allows us to calculate easily.
+But we have $\mathrm df=D_{\underline{e_i}}f\,\mathrm dx_i$ in any coordinate.
+So immediately we have
+\begin{proposition}
+    $\mathrm df=\nabla f\cdot\mathrm d\underline{x}$
+\end{proposition}
+which is coordinate independent.
+\begin{proof}
+    Just calculate the right hand side.
+\end{proof}
+\begin{proposition}
+    Let $u,v,w$ be a set of curvilinear coordinates, then we have
+    $$\nabla f=\frac{1}{h_u}\frac{\partial f}{\partial u}\underline{e_u}+\frac{1}{h_v}\frac{\partial f}{\partial v}\underline{e_v}+\frac{1}{h_w}\frac{\partial f}{\partial w}\underline{e_w}$$
+\end{proposition}
+\begin{proof}
+    $\mathrm df=\nabla f\cdot\mathrm d\underline{x}$ independent of coordinate.
+    We also know that $\mathrm d\underline{x}=h_u\underline{e_u}\,\mathrm du+h_v\underline{e_v}\,\mathrm dv+h_w\underline{e_w}\,\mathrm dw$.
+    Write $\nabla f=(\nabla f)_u\underline{e_u}+(\nabla f)_v\underline{e_v}+(\nabla f)_w\underline{e_w}$, then
+    $$\nabla f\cdot \mathrm d\underline{x}=h_u(\nabla f)_u\,\mathrm du+h_v(\nabla f)_v\,\mathrm dv+h_w(\nabla f)_w\,\mathrm dw$$
+    In addition,
+    $$\mathrm df=\frac{\partial f}{\partial u}\,\mathrm du+\frac{\partial f}{\partial v}\,\mathrm dv+\frac{\partial f}{\partial w}\,\mathrm dw$$
+    But they are equal.
+    Since $\mathrm du,\mathrm dv,\mathrm dw$ are linearly independent, we have
+    $$(\nabla f)_u=\frac{1}{h_u}\frac{\partial f}{\partial u},(\nabla f)_v=\frac{1}{h_v}\frac{\partial f}{\partial v},(\nabla f)_w=\frac{1}{h_w}\frac{\partial f}{\partial w}$$
+    As desired.
+\end{proof}
+\begin{example}
+    1. For cylindral coordinates $(\rho,\phi,z)$, we have
+    $$\nabla f=\frac{\partial f}{\partial\rho}\underline{e_\rho}+\frac{1}{\rho}\frac{\partial f}{\partial\phi}\underline{e_\phi}+\frac{\partial f}{\partial z}\underline{e_z}$$
+    Then in the previous example where $f(\underline{x})=|\underline{x}|^2/2=(\rho^2+z^2)/2\implies\nabla f=\rho\underline{e_\rho}+z\underline{e_z}=\underline{x}$\\
+    2. For spherical coordinates $(r,\theta,\phi)$, we can do the same thing,
+    $$\nabla f=\frac{\partial f}{\partial r}\underline{e_r}+\frac{1}{r}\frac{\partial f}{\partial\theta}\underline{e_\theta}+\frac{1}{r\sin\theta}\frac{\partial f}{\partial \phi}\underline{e_\phi}$$
+    Using the same example $f(\underline{x})=r^2/2\implies \nabla f=r\underline{e_r}=\underline{x}$.
+\end{example}
+\begin{note}
+    We talked about the functions about position vectors under different coordinates,
+    $$f(\underline{x})=f(\underline{x}(x,y,z))=f(\underline{x}(r,\theta,\phi))$$
+    So when we are talking about $f$, sometimes we are telling
+    $$\tilde{f}(x,y,z)=f(\underline{x}(x,y,z)),\tilde{\tilde{f}}(r,\theta,\rho)=f(\underline{x}(r,\theta,\rho))$$
+    Or other coordinate we might find interesting.
+    We are actually talking about a pullback here which might be clear in a couple of years' time.
+\end{note}

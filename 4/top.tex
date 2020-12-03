@@ -1,0 +1,20 @@
+\subsection{Bonus: Topology via Calculus and de Rham Cohomology}
+If $\underline{F}$ is a vector field with simply connected domain, we know that $\nabla\times\underline{F}=0$ implies that $\underline{F}$ is conservative.
+We can conversely use it to show that certain domain is not simply connected.
+\begin{example}
+    Suppose $\mathbb R\setminus\{(0,0,z):z\in\mathbb R\}$ is simply connected.
+    Then consider the vector field
+    $$\underline{F}=\frac{1}{x^2+y^2}(-y,x,0)$$
+    So it is well defined and smooth on the said domain.
+    It also has zero curl.
+    So exists scalar function $f$ such that $\underline{F}=\nabla f$, hence the line integral of it along any loop is zero.
+    However, let us consider the curve in the $x-y$ plane:
+    $$C:[0,2\pi]\ni t\mapsto\begin{pmatrix}
+        \cos t\\
+        \sin t\\
+        0
+    \end{pmatrix}$$
+    Then
+    $$\int_C\underline{F}\cdot\mathrm d\underline{x}=2\pi\neq 0$$
+    Contradiction.
+\end{example}

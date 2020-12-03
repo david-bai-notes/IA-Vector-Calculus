@@ -1,0 +1,85 @@
+\section{Maxwell's Equations}
+Just a little identity on Laplacian of vector fields
+\begin{proposition}
+    We have
+    $$\nabla^2\underline{F}=\nabla(\nabla\cdot\underline{F})-\nabla\times(\nabla\times\underline{F})$$
+    where $(\nabla^2\underline{F})_i=\nabla^2\underline{F_i}$
+\end{proposition}
+\subsection{Introduction to Electromagnetism}
+We have the electric field $\underline{E}=\underline{E}(\underline{x},t)$, the magnetic field $\underline{B}=\underline{B}(\underline{x},t)$, charge density $\rho=\rho(\underline{x},t)$ and current density $\underline{J}=\underline{J}(\underline{x},t)$.
+The Maxwell's Equations state that
+$$\begin{cases}
+    \nabla\cdot\underline{E}=\epsilon_0^{-1}\rho\\
+    \nabla\cdot\underline{B}=0\\
+    \nabla\times\underline{E}+\partial\underline{B}/\partial t=0\\
+    \nabla\times\underline{B}-\mu_0\epsilon_0\partial\underline{E}/\partial t=\mu_0\underline{J}
+\end{cases}$$
+where $\epsilon_0$ is the permitivity and $\mu_0$ is the permeability of free space with $\mu_0\epsilon_0=c^{-2}$ where $c$ is the speed of light.
+Take the divergence of the fourth equation gives
+$$0=\mu_0\epsilon_0\frac{\partial}{\partial t}(\nabla\cdot\underline{E})+\mu_0\nabla\cdot\underline{J}\implies 0=\frac{\partial\rho}{\partial t}+\nabla\cdot\underline{J}$$
+\subsection{Integral Forms of Maxwell's Equations}
+If we integrate then first equation and use divergence theorem to integrate the electric field over the flux of the boundary of a volume, we get
+$$\int_{\partial V}\underline{E}\cdot\mathrm d\underline{S}=\int_V\nabla\cdot\underline{E}\,\mathrm dV=\frac{1}{\epsilon_0}\int_V\rho\,\mathrm dV=\frac{Q}{\epsilon_0}$$
+where $Q$ is the total charge of the volume $V$.
+Do exactly the same thing with th second equation then gives
+$$\int_{\partial V}\underline{B}\cdot\mathrm d\underline{S}=\int_V\nabla\cdot\underline{B}\,\mathrm dV=0$$
+which is saying that there is no magnetic monopoles since we cannot have a singular pole that emit magnetic field out of a volume.
+In fact, if somewhere there exists a magnetic monopole, then charges are necessarily quantized.\\
+As for the third equation, we have
+$$\oint_{\partial S}\underline{E}\cdot\mathrm d\underline{x}=\int_S\nabla\times\underline{E}\cdot\mathrm d\underline{S}=-\frac{\mathrm d}{\mathrm dt}\int_S\underline{B}\,\mathrm d\underline{S}$$
+So change in magnetic flux induces electric field.
+Similarly, in the fourth equation,
+$$\oint_{\partial S}\underline{B}\cdot\mathrm d\underline{x}=\int_S\nabla\times\underline{B}\cdot\mathrm d\underline{S}=\mu_0\epsilon_0\frac{\mathrm d}{\mathrm dt}\int_S\underline{E}\cdot\mathrm d\underline{S}+\mu_0\int_S\underline{J}\cdot\mathrm d\underline{S}$$
+\subsection{Electromagnetic Waves}
+In a free space, where $\rho=\underline{J}=\underline{0}$, then
+\begin{align*}
+    \nabla^2\underline{E}&=\nabla(\nabla\cdot\underline{E})-\nabla\times(\nabla\times\underline{E})\\
+    &=0-\nabla\times\left(-\frac{\partial\underline{B}}{\partial t}\right)\\
+    &=\frac{\partial}{\partial t}(\nabla\times\underline{B})\\
+    &=\mu_0\epsilon_0\frac{\partial^2\underline{E}}{\partial t^2}\\
+    \implies 0&=\nabla^2\underline{E}-\frac{1}{c^2}\frac{\partial^2\underline{E}}{\partial t^2}
+\end{align*}
+which is the wave equation of a wave with speed $c$.
+If we do the same thing to $\underline{B}$, we obtain
+\begin{align*}
+    \nabla^2\underline{B}&=\nabla(\nabla\cdot\underline{B})-\nabla\times(\nabla\times\underline{B})\\
+    &=0-\nabla\times\left(\frac{1}{c^2}\frac{\partial\underline{E}}{\partial t}\right)\\
+    &=-\frac{1}{c^2}\frac{\partial}{\partial t}(\nabla\times\underline{E})\\
+    &=\frac{1}{c^2}\frac{\partial^2\underline{B}}{\partial t^2}\\
+    \implies 0&=\nabla^2\underline{B}-\frac{1}{c^2}\frac{\partial^2\underline{B}}{\partial t^2}
+\end{align*}
+\subsection{Electrostatics and Magnitostatics}
+Assume that everything is time-independent, then $t$-derivatives are all $0$, which produces
+$$\begin{cases}
+    \nabla\cdot\underline{E}=\epsilon_0^{-1}\rho\\
+    \nabla\cdot\underline{B}=0\\
+    \nabla\times\underline{E}=0\\
+    \nabla\times\underline{B}=\mu_0\underline{J}
+\end{cases}$$
+So if we work in $\mathbb R^3$ which is $2$-connected, we can write $\underline{E}=-\nabla\phi$ and $\underline{B}=\nabla\times\underline{A}$ for some $\phi,\underline{A}$.
+$\phi$ is called the electric potential and $\underline{A}$ the magnetic potential.
+So Maxwell's equations reduce to
+$$\begin{cases}
+    -\nabla^2\phi=\rho/\epsilon_0\\
+    \nabla\times(\nabla\times\underline{A})=\mu_0\underline{J}
+\end{cases}$$
+The first one is called the Poisson's Equation.
+\subsection{Gauge Invariance}
+In a $2$-connected domain, we can always write $\underline{B}=\nabla\times\underline{A}$.
+But note that the equation still holds by adding the gradient of some scalar function to $\underline{A}$, so $\underline{B}$ is invariant under $\underline{A}\mapsto\underline{A}+\nabla\chi$ for $\chi=\chi(\underline{x},t)$.
+If we put the vector potential into the third equation,
+$$\nabla\times\left( \underline{E}+\frac{\partial\underline{B}}{\partial t} \right)=0$$
+So we can write $\underline{E}=-\nabla\phi-\partial\underline{B}/\partial t$, so we have
+$$-\nabla^2\phi-\frac{\partial}{\partial t}(\nabla\cdot\underline{A})=\frac{\rho}{\epsilon_0}$$
+And
+$$\nabla\times(\nabla\times A)+\frac{1}{c^2}\nabla\left( \frac{\partial\phi}{\partial t} \right)+\frac{1}{c^2}\frac{\partial^2\underline{A}}{\partial t^2}=\mu_0\underline{J}$$
+But by a known identity on curl of curl,
+$$-\nabla^2\underline{A}+\frac{1}{c^2}\frac{\partial^2\underline{A}}{\partial t^2}+\nabla\left( \frac{1}{c^2}\frac{\partial\phi}{\partial t}+\nabla\cdot\underline{A} \right)=\mu_0\underline{J}$$
+We now choose the scalar field $\chi$ such that
+$$\frac{1}{c^2}\frac{\partial\phi}{\partial t}+\nabla\cdot\underline{A}=0$$
+under $\underline{A}\mapsto\underline{A}+\nabla\chi$.
+So we can get an equation similar to a wave equation
+$$-\nabla^2\underline{A}+\frac{1}{c^2}\frac{\partial^2\underline{A}}{\partial t^2}=\mu_0\underline{J}$$
+and
+$$-\nabla^2\phi+\frac{1}{c^2}\frac{\partial^2\phi}{\partial t^2}=\frac{\rho}{\epsilon_0}$$
+This trick is called the Lorenz gauge.

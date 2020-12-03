@@ -1,0 +1,61 @@
+\subsection{Surface Integrals}
+\begin{definition}
+    Consider a map $f:\mathbb R^3\to\mathbb R$, then we can define a surface by $\{\underline{x}:f(\underline{x})=0\}$.
+\end{definition}
+In this case, the normal to the surface at $\underline{x}$ is $\nabla f(\underline{x})$.
+\begin{definition}
+    A surface thus defined is called regular if $\nabla f\neq \underline{0}$ everywhere on the surface.
+\end{definition}
+\begin{example}
+    Consider $f(x,y,z)=x^2+y^2+z^2-1$, then it defines the unit sphere $S^2$.
+    Note that $\nabla f=(2x,2y,2z)^\top$ which is certainly normal to $S^2$.
+    It is also regular.\\
+    In spherical polars, it is in the form $f(r,\theta,\phi)=r^2-1$, so $\nabla f=2r\underline{e_r}=2\underline{x}$.
+\end{example}
+Some surfaces have a boundary, for example a hemisphere.
+In this case we write $\partial S$ to be the boundary of $S$.
+In particular the boundary of a hemisphere defined by $x^2+y^2+z^2-1=0$ and $z=0$ is the unit circle in the $x-y$ plane.
+If a surface does not have a boundary, we say the boundary is empty.
+In this case, we call such a surface closed.\\
+Often easiest is to give a local coordinate $u,v$, so $S=\{\underline{x}=\underline{x}(u,v)\}$.
+In this case, we define a normal as
+$$\frac{\partial\underline{x}}{\partial u}\times\frac{\partial\underline{x}}{\partial v}\left/\middle\|\frac{\partial\underline{x}}{\partial u}\times\frac{\partial\underline{x}}{\partial v}\right\|$$
+assuming it is well-defined.
+For regular surfaces, this is always well-defined.
+It can define the normal consistenly (in terms of sign) or smoothly if the surface is orientable (which we may not define rigourously, sadly).
+If the surface is indeed orientable, we use the convention for the orientation of the boundary curve that when we moving along the boundaries, normal vectors are on our left.
+\begin{example}
+    Consider the hemisphere again using spherical polars $S=\{(\cos\phi\sin\theta,\sin\phi\sin\theta,\cos\theta):\theta\in[0,\pi/2],\phi\in[0,2\pi]\}$
+    By calculation we get exactly the vector $\underline{e_r}$ as the normal.
+\end{example}
+To calculate the area of a surface, we want to partition the surface by a rectangularization of the $u-v$ plane.
+So the area of the piece that might look like a parallelogram when we zoom in have an approximated area of $\delta u\delta v\|(\partial \underline{x}/\partial u)\times(\partial \underline{x}/\partial v)\|$, so the area is (from intuition):
+\begin{definition}
+    The area of the surface $S$ is
+    $$\int_S\mathrm dS=\int_S|\mathrm d\underline{S}|=\int_S\left\|\frac{\partial\underline{x}}{\partial u}\times\frac{\partial\underline{x}}{\partial v}\right\|\,\mathrm du\,\mathrm dv$$
+\end{definition}
+Where we write $\mathrm d\underline{S}=\underline{n}\,\mathrm dS$.
+\begin{example}
+    We (yet again) look at the hemisphere paramterized by $S=\{(R\cos\phi\sin\theta,R\sin\phi\sin\theta,R\cos\theta):\theta\in[0,\pi/2],\phi\in[0,2\pi]\}$, so
+    $$\int_S\mathrm dS=\int_S|\mathrm d\underline{S}|=\int_SR^2\sin\theta\,\mathrm d\theta\,\mathrm d\phi=2\pi R^2$$
+\end{example}
+We want to use similar method to define the flux integral, which is like the amount of fluid passing though the surface $S$ in unit time.
+\begin{definition}
+    We define the integral of $f:\mathbb R^3\to\mathbb R$ to be
+    $$\int_Sf\,\mathrm dS=\iint_Sf(\underline{x}(u,v))\left\|\frac{\partial\underline{x}}{\partial u}\times\frac{\partial\underline{x}}{\partial v}\right\|\,\mathrm du\,\mathrm dv$$
+\end{definition}
+Suppose $S:\underline{x}=\underline{x}(u,v),S':\underline{\tilde{x}}=\underline{\tilde{x}}(\tilde{u},\tilde{v})$ are two different parameterizations of the same surface $S$, then we have $\underline{x}(u,v)=\underline{\tilde{x}}(\tilde{u}(u,v),\tilde{v}(u,v))$, where we assume that $\tilde{u},\tilde{u}$ are smooth bijections with smooth inverse.
+So we have, by calculus,
+$$\frac{\partial\underline{x}}{\partial u}\times\frac{\partial\underline{x}}{\partial v}=\frac{\partial\underline{\tilde{x}}}{\partial\tilde{u}}\times\frac{\partial\underline{\tilde{x}}}{\partial\tilde{v}}\frac{\partial (\tilde{u},\tilde{v})}{\partial (u,v)}$$
+So
+\begin{align*}
+    \int_S f\,\mathrm dS&=\iint_Sf(\underline{x}(u,v))\left\|\frac{\partial\underline{x}}{\partial u}\times\frac{\partial\underline{x}}{\partial v}\right\|\,\mathrm du\,\mathrm dv\\
+    &=\iint_{S}f(\underline{\tilde{x}}(\tilde{u}(u,v),\tilde{v}(u,v)))\left\|\frac{\partial\underline{\tilde{x}}}{\partial\tilde{u}}\times\frac{\partial\underline{\tilde{x}}}{\partial\tilde{v}}\frac{\partial (\tilde{u},\tilde{v})}{\partial (u,v)}\right\|\,\mathrm du\,\mathrm dv\\
+    &=\iint_{S}f(\underline{\tilde{x}}(\tilde{u}(u,v),\tilde{v}(u,v)))\left\|\frac{\partial\underline{\tilde{x}}}{\partial\tilde{u}}\times\frac{\partial\underline{\tilde{x}}}{\partial\tilde{v}}\right\|\left|\frac{\partial (\tilde{u},\tilde{v})}{\partial (u,v)}\right|\,\mathrm du\,\mathrm dv\\
+    &=\iint_{S'}f(\underline{\tilde{x}}(\tilde{u},\tilde{v}))\left\|\frac{\partial\underline{\tilde{x}}}{\partial \tilde{u}}\times\frac{\partial\underline{\tilde{x}}}{\partial\tilde{v}}\right\|\,\mathrm d\tilde{u}\,\mathrm d\tilde{v}\\
+    &=\int_{S'} f\,\mathrm dS'
+\end{align*}
+Just as the Fundamental Theorem of Calculus told us that the integration over a derivative depends only on its endpoints, the integral over a surface of some sort of derivative will only depend on the boundary of the surface.
+\footnote{In fact, this is true in manifolds of even higher dimensions, which is known as Stokes' Theorem.}
+Then, for a vector field $\underline{F}$, we define the flux integral of it over the surface $S$ by
+$$\int_S\underline{F}\cdot\mathrm d\underline{S}=\int_S\underline{F}\cdot\underline{n}\,\mathrm dS$$
